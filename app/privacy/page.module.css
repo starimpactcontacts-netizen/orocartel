@@ -1,0 +1,28 @@
+.main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 60px 16px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.main a {
+  color: var(--gold);
+}
+
+.back {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 56px;
+  text-transform: uppercase;
+  color: var(--text);
+}
