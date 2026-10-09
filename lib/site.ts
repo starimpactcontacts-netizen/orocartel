@@ -8,5 +8,5 @@ export const site = {
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',
   instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || '',
   tiktok: process.env.NEXT_PUBLIC_TIKTOK_URL || '',
-  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || '',
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'orocartel.com@gmail.com',
 }
