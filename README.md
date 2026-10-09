@@ -20,8 +20,8 @@ To export the list: Supabase → Table Editor → `oro_waitlist` → Export CSV.
 
 | Name | Required | Notes |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | yes | |
-| `SUPABASE_PUBLISHABLE_KEY` | yes | `sb_publishable_…`. Without it, signups return "list is not open yet" |
+| `NEXT_PUBLIC_SUPABASE_URL` | no | Defaults to the orocartel project in `lib/supabase.ts` |
+| `SUPABASE_PUBLISHABLE_KEY` | no | Defaults to the orocartel publishable key in `lib/supabase.ts` |
 | `NEXT_PUBLIC_DROP_DATE` | no | e.g. `2026-11-14T18:00:00-05:00`. Empty shows "coming soon" |
 | `NEXT_PUBLIC_INSTAGRAM_URL` | no | Footer link is hidden when empty |
 | `NEXT_PUBLIC_TIKTOK_URL` | no | |
