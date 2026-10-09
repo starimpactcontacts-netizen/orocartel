@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSupabaseAdmin } from '@/lib/supabaseAdmin'
+import { getSupabase } from '@/lib/supabase'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
   const size = typeof body.size === 'string' && SIZES.includes(body.size) ? body.size : null
   const source = typeof body.source === 'string' ? body.source.slice(0, 64) || null : null
 
-  const supabase = getSupabaseAdmin()
+  const supabase = getSupabase()
   if (!supabase) {
     console.error('Waitlist: Supabase env vars are not set')
     return NextResponse.json({ error: 'list is not open yet, try again soon' }, { status: 503 })
@@ -44,16 +44,14 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  const supabase = getSupabaseAdmin()
+  const supabase = getSupabase()
   if (!supabase) return NextResponse.json({ count: 0 })
 
-  const { count, error } = await supabase
-    .from('oro_waitlist')
-    .select('*', { count: 'exact', head: true })
+  const { data, error } = await supabase.rpc('oro_waitlist_count')
 
   if (error) {
     console.error('Waitlist count error:', error)
     return NextResponse.json({ count: 0 })
   }
-  return NextResponse.json({ count: count || 0 })
+  return NextResponse.json({ count: Number(data) || 0 })
 }

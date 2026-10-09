@@ -12,7 +12,7 @@ Standalone Next.js 15 app.
 
 ## Supabase
 
-Run `supabase/schema.sql` in the SQL editor. You can use a new project or the existing one, since the table is named `oro_waitlist`. Signups go through `/api/waitlist` with the service role key. RLS is on with no policies, so the list can't be read from the browser.
+The `oro_waitlist` table and the `oro_waitlist_count()` function are defined in `supabase/schema.sql`. Signups go through `/api/waitlist` using the publishable key. RLS only allows inserting rows and calling the count function, so nobody can read the list with that key.
 
 To export the list: Supabase → Table Editor → `oro_waitlist` → Export CSV.
 
@@ -21,7 +21,7 @@ To export the list: Supabase → Table Editor → `oro_waitlist` → Export CSV.
 | Name | Required | Notes |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | yes | |
-| `SUPABASE_SERVICE_ROLE_KEY` | yes | Server-only. Without it, signups return "list is not open yet" |
+| `SUPABASE_PUBLISHABLE_KEY` | yes | `sb_publishable_…`. Without it, signups return "list is not open yet" |
 | `NEXT_PUBLIC_DROP_DATE` | no | e.g. `2026-11-14T18:00:00-05:00`. Empty shows "coming soon" |
 | `NEXT_PUBLIC_INSTAGRAM_URL` | no | Footer link is hidden when empty |
 | `NEXT_PUBLIC_TIKTOK_URL` | no | |
