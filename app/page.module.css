@@ -28,12 +28,6 @@
   text-align: center;
 }
 
-.mark {
-  width: min(78vw, 560px);
-  height: auto;
-  margin-bottom: clamp(20px, 6vh, 60px);
-}
-
 .kicker {
   font-family: var(--font-display);
   font-weight: 500;

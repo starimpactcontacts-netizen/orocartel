@@ -1,0 +1,18 @@
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.mark {
+  width: 46%;
+  height: auto;
+  margin-bottom: 7%;
+}
+
+.word {
+  width: 100%;
+  height: auto;
+}

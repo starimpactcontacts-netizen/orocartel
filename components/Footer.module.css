@@ -8,16 +8,6 @@
   text-align: center;
 }
 
-.mark {
-  width: 150px;
-  height: auto;
-  margin-bottom: -6px;
-}
-
-.logo {
-  width: auto;
-  height: 22px;
-}
 
 .links {
   display: flex;

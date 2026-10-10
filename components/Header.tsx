@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { site } from '@/lib/site'
+import Logo from './Logo'
 import styles from './Header.module.css'
 
 export default function Header({ overlay = false }: { overlay?: boolean }) {
@@ -30,7 +31,7 @@ export default function Header({ overlay = false }: { overlay?: boolean }) {
         </button>
 
         <Link href="/" className={styles.logo} aria-label={site.name}>
-          <img src="/wordmark.png" alt={site.name} width={657} height={85} />
+          <Logo size={170} className={styles.lockup} />
         </Link>
 
         <a href="/#list" className={styles.iconBtn} aria-label="Join the list">

@@ -48,7 +48,6 @@ export default function Home() {
       >
         <div className={styles.heroShade} aria-hidden />
         <div className={styles.heroInner}>
-          <img src="/greyhound.png" alt="" className={styles.mark} width={1477} height={462} />
           <p className={styles.kicker}>Drop 001</p>
           <Countdown target={site.dropDate} />
           <a href="#list" className={styles.heroBtn}>Get early access</a>
