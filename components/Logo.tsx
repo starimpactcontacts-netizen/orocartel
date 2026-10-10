@@ -5,7 +5,7 @@ export default function Logo({ size = 200, className }: { size?: number; classNa
   return (
     <span className={className ? `${styles.logo} ${className}` : styles.logo} style={{ width: size }}>
       <img src="/ram.png" alt="" className={styles.mark} width={1313} height={833} />
-      <img src="/wordmark.png" alt="OROCARTEL" className={styles.word} width={657} height={85} />
+      <img src="/wordmark.png" alt="OROCARTEL" className={styles.word} width={659} height={87} />
     </span>
   )
 }
