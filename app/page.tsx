@@ -1,94 +1,75 @@
+import Header from '@/components/Header'
 import Countdown from '@/components/Countdown'
+import Collections from '@/components/Collections'
 import WaitlistForm from '@/components/WaitlistForm'
 import Footer from '@/components/Footer'
 import { site } from '@/lib/site'
 import styles from './page.module.css'
 
-const MARQUEE = ['Limited run', 'No restocks', 'Members first', 'Gold standard']
+const icon = { width: 26, height: 26, fill: 'none', stroke: 'currentColor', strokeWidth: 1.2, viewBox: '0 0 24 24' }
 
-const PIECES = [
-  { no: '01', name: 'Classified' },
-  { no: '02', name: 'Classified' },
-  { no: '03', name: 'Classified' },
-  { no: '04', name: 'Classified' },
-]
-
-const STEPS = [
-  { title: 'Get on the list', body: 'Drop your email. That’s your key.' },
-  { title: 'Early access', body: 'List members shop before the public — first pick of sizes.' },
-  { title: 'Gone for good', body: 'Every piece is a limited run. When it sells out, it’s done.' },
+const PERKS = [
+  {
+    label: 'Limited runs',
+    svg: (
+      <svg {...icon}>
+        <path d="M3 12V4h8l10 10-8 8L3 12z" />
+        <circle cx="7.5" cy="8.5" r="1.3" />
+      </svg>
+    ),
+  },
+  {
+    label: 'No restocks',
+    svg: (
+      <svg {...icon}>
+        <path d="M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Members first',
+    svg: (
+      <svg {...icon}>
+        <rect x="5" y="11" width="14" height="10" rx="1" />
+        <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+      </svg>
+    ),
+  },
 ]
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.glow} aria-hidden />
+    <main>
+      <Header overlay />
 
-      <header className={styles.topbar}>
-        <span className={styles.mark}>OC</span>
-        <a href="#list" className={styles.topCta}>Join the list</a>
-      </header>
-
-      <section className={styles.hero}>
-        <p className={styles.kicker}>Drop 001 · {site.domain}</p>
-        <h1 className={styles.wordmark}>
-          <span>ORO</span>
-          <span className={styles.gold}>CARTEL</span>
-        </h1>
-        <p className={styles.tagline}>{site.tagline}</p>
-        <div className={styles.countdown}>
+      <section
+        className={styles.hero}
+        style={site.heroImage ? { backgroundImage: `url(${site.heroImage})` } : undefined}
+      >
+        <div className={styles.heroShade} aria-hidden />
+        <div className={styles.heroInner}>
+          <p className={styles.kicker}>Drop 001</p>
           <Countdown target={site.dropDate} />
-        </div>
-        <div id="list" className={styles.formWrap}>
-          <WaitlistForm source="hero" />
+          <a href="#list" className={styles.heroBtn}>Get early access</a>
         </div>
       </section>
 
-      <div className={styles.marquee} aria-hidden>
-        <div className={styles.track}>
-          {[...MARQUEE, ...MARQUEE, ...MARQUEE, ...MARQUEE].map((t, i) => (
-            <span key={i}>
-              {t} <span className={styles.star}>✦</span>
-            </span>
-          ))}
-        </div>
+      <div className={styles.perks}>
+        {PERKS.map((p) => (
+          <div key={p.label} className={styles.perk}>
+            {p.svg}
+            <span>{p.label}</span>
+          </div>
+        ))}
       </div>
 
-      <section className={styles.section}>
-        <h2 className={styles.h2}>Drop 001</h2>
-        <p className={styles.sub}>Pieces revealed to the list first.</p>
-        <div className={styles.grid}>
-          {PIECES.map((p) => (
-            <div key={p.no} className={styles.card}>
-              <div className={styles.cardArt}>
-                <span className={styles.cardNo}>{p.no}</span>
-                <span className={styles.lock}>Locked</span>
-              </div>
-              <div className={styles.cardMeta}>
-                <span>{p.name}</span>
-                <span className={styles.muted}>—</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <Collections />
 
-      <section className={styles.section}>
-        <h2 className={styles.h2}>How it works</h2>
-        <div className={styles.steps}>
-          {STEPS.map((s, i) => (
-            <div key={s.title} className={styles.step}>
-              <span className={styles.stepNo}>0{i + 1}</span>
-              <h3 className={styles.stepTitle}>{s.title}</h3>
-              <p className={styles.stepBody}>{s.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.final}`}>
-        <h2 className={styles.h2}>Don&apos;t hear about it late.</h2>
-        <WaitlistForm source="footer" />
+      <section id="list" className={styles.list}>
+        <span className={styles.badge}>Drop 001</span>
+        <h2 className={styles.h2}>The list</h2>
+        <p className={styles.sub}>{site.tagline} List members shop first.</p>
+        <WaitlistForm source="home" />
       </section>
 
       <Footer />

@@ -9,15 +9,18 @@ export default function NotFound() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 20,
+        gap: 18,
         padding: 16,
         textAlign: 'center',
       }}
     >
-      <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 80, color: 'var(--gold)' }}>404</h1>
-      <p style={{ color: 'var(--muted)' }}>Nothing here. Yet.</p>
-      <Link href="/" style={{ letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: 12 }}>
-        ← Back to the drop
+      <h1 style={{ fontFamily: 'var(--font-logo)', fontWeight: 400, fontSize: 44 }}>OROCARTEL</h1>
+      <p style={{ color: 'var(--muted)' }}>This page doesn&apos;t exist.</p>
+      <Link
+        href="/"
+        style={{ padding: '14px 32px', border: '1.5px solid var(--text)', letterSpacing: '0.08em' }}
+      >
+        Back home
       </Link>
     </main>
   )

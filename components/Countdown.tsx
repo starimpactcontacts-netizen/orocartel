@@ -3,16 +3,6 @@
 import { useEffect, useState } from 'react'
 import styles from './Countdown.module.css'
 
-function parts(ms: number) {
-  const s = Math.max(0, Math.floor(ms / 1000))
-  return {
-    days: Math.floor(s / 86400),
-    hours: Math.floor((s % 86400) / 3600),
-    mins: Math.floor((s % 3600) / 60),
-    secs: s % 60,
-  }
-}
-
 const pad = (n: number) => String(n).padStart(2, '0')
 
 export default function Countdown({ target }: { target: string }) {
@@ -25,28 +15,26 @@ export default function Countdown({ target }: { target: string }) {
     return () => clearInterval(id)
   }, [])
 
-  if (Number.isNaN(targetMs)) {
-    return <p className={styles.soon}>Drop date — coming soon</p>
-  }
+  if (Number.isNaN(targetMs)) return <p className={styles.text}>Coming soon</p>
+  if (now !== null && now >= targetMs) return <p className={styles.text}>Live now</p>
 
-  if (now !== null && now >= targetMs) {
-    return <p className={styles.live}>The drop is live</p>
-  }
-
-  const p = now === null ? null : parts(targetMs - now)
-  const units: [string, number | undefined][] = [
-    ['Days', p?.days],
-    ['Hrs', p?.hours],
-    ['Min', p?.mins],
-    ['Sec', p?.secs],
+  const s = now === null ? null : Math.floor((targetMs - now) / 1000)
+  const units: [string, number | null][] = [
+    ['Days', s === null ? null : Math.floor(s / 86400)],
+    ['Hours', s === null ? null : Math.floor((s % 86400) / 3600)],
+    ['Min', s === null ? null : Math.floor((s % 3600) / 60)],
+    ['Sec', s === null ? null : s % 60],
   ]
 
   return (
     <div className={styles.wrap} aria-label="Time until drop">
-      {units.map(([label, value]) => (
+      {units.map(([label, v], i) => (
         <div key={label} className={styles.unit}>
-          <span className={styles.num}>{value === undefined ? '--' : pad(value)}</span>
-          <span className={styles.label}>{label}</span>
+          {i > 0 && <span className={styles.sep} aria-hidden />}
+          <div>
+            <span className={styles.num}>{v === null ? '--' : pad(v)}</span>
+            <span className={styles.label}>{label}</span>
+          </div>
         </div>
       ))}
     </div>

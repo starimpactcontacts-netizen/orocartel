@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { site } from '@/lib/site'
 import styles from './page.module.css'
@@ -8,8 +8,8 @@ export const metadata = { title: 'Privacy' }
 export default function Privacy() {
   return (
     <>
+      <Header />
       <main className={styles.main}>
-        <Link href="/" className={styles.back}>← Back</Link>
         <h1 className={styles.h1}>Privacy</h1>
         <p>
           When you join the {site.name} list we store your email address and, if you choose to give

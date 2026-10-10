@@ -1,6 +1,6 @@
 # orocartel.com
 
-Pre-launch drop site for ORO CARTEL: hero with a live countdown, an early-access list (email plus optional Instagram handle and size), a locked Drop 001 preview, and privacy, OG image, favicon, robots and sitemap.
+Pre-launch site for OROCARTEL: full-bleed hero with a drop countdown, collection tiles, an early-access list (email plus optional Instagram handle and size), a privacy page, OG image, favicon, robots and sitemap.
 
 Standalone Next.js 15 app.
 
@@ -31,8 +31,9 @@ To export the list: Supabase → Table Editor → `oro_waitlist` → Export CSV.
 
 ## Editing copy
 
-- Tagline and description: `lib/site.ts`
-- Marquee, Drop 001 cards and "How it works": top of `app/page.tsx`
+- Name, tagline, announcement bar, hero photo: `site` in `lib/site.ts`
+- Collection tiles (names and photos): `collections` in `lib/site.ts`. Put images in `/public`.
+- Trust row (Limited runs / No restocks / Members first): top of `app/page.tsx`
 
 ## Local
 

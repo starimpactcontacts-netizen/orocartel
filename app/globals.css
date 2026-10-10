@@ -1,11 +1,9 @@
 :root {
-  --bg: #070707;
-  --surface: #0f0e0c;
-  --text: #f4efe3;
-  --muted: #8f887a;
-  --gold: #d4af37;
-  --gold-light: #f5d77a;
-  --line: rgba(212, 175, 55, 0.22);
+  --bg: #121212;
+  --surface: #1a1a1a;
+  --text: #f3f3f3;
+  --muted: rgba(243, 243, 243, 0.62);
+  --line: rgba(243, 243, 243, 0.14);
   color-scheme: dark;
 }
 
@@ -15,12 +13,17 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
+  font-variant-numeric: lining-nums;
   overflow-x: hidden;
 }
 
@@ -29,12 +32,21 @@ a {
   text-decoration: none;
 }
 
+button {
+  font: inherit;
+  color: inherit;
+}
+
 ::selection {
-  background: var(--gold);
-  color: #000;
+  background: var(--text);
+  color: var(--bg);
 }
 
 :focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
+  outline: 1px solid var(--text);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }

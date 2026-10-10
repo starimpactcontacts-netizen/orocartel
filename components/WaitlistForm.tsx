@@ -47,66 +47,57 @@ export default function WaitlistForm({ source = 'home' }: { source?: string }) {
   if (status === 'done') {
     return (
       <div className={styles.done} role="status">
-        <span className={styles.doneMark}>✦</span>
-        <p className={styles.doneTitle}>You&apos;re on the list.</p>
-        <p className={styles.doneSub}>First access hits your inbox before the public drop.</p>
+        <p className={styles.doneTitle}>You&apos;re on the list</p>
+        <p className={styles.doneSub}>Early access lands in your inbox before the public drop.</p>
       </div>
     )
   }
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.row}>
-        <input
-          type="email"
-          placeholder="Email address"
-          aria-label="Email address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          autoComplete="email"
-          className={styles.input}
-          disabled={status === 'loading'}
-        />
-        <button type="submit" disabled={status === 'loading'} className={styles.button}>
-          {status === 'loading' ? 'Joining…' : 'Get early access'}
-        </button>
+      <input
+        type="email"
+        placeholder="Email"
+        aria-label="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        autoComplete="email"
+        className={styles.input}
+        disabled={status === 'loading'}
+      />
+      <input
+        type="text"
+        placeholder="Instagram (optional)"
+        aria-label="Instagram handle (optional)"
+        value={instagram}
+        onChange={(e) => setInstagram(e.target.value)}
+        className={styles.input}
+        disabled={status === 'loading'}
+        maxLength={31}
+      />
+      <div className={styles.sizes} role="radiogroup" aria-label="Your size (optional)">
+        {SIZES.map((s) => (
+          <button
+            key={s}
+            type="button"
+            role="radio"
+            aria-checked={size === s}
+            className={size === s ? `${styles.size} ${styles.sizeOn}` : styles.size}
+            onClick={() => setSize(size === s ? '' : s)}
+            disabled={status === 'loading'}
+          >
+            {s}
+          </button>
+        ))}
       </div>
-
-      <div className={styles.extras}>
-        <input
-          type="text"
-          placeholder="@instagram (optional)"
-          aria-label="Instagram handle (optional)"
-          value={instagram}
-          onChange={(e) => setInstagram(e.target.value)}
-          className={styles.inputSmall}
-          disabled={status === 'loading'}
-          maxLength={31}
-        />
-        <div className={styles.sizes} role="radiogroup" aria-label="Your size (optional)">
-          {SIZES.map((s) => (
-            <button
-              key={s}
-              type="button"
-              role="radio"
-              aria-checked={size === s}
-              className={size === s ? `${styles.size} ${styles.sizeOn}` : styles.size}
-              onClick={() => setSize(size === s ? '' : s)}
-              disabled={status === 'loading'}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-      </div>
+      <button type="submit" disabled={status === 'loading'} className={styles.button}>
+        {status === 'loading' ? 'Joining…' : 'Join the list'}
+      </button>
 
       {error && <p className={styles.error} role="alert">{error}</p>}
-
       {count !== null && count > 0 && (
-        <p className={styles.count}>
-          {count.toLocaleString()} {count === 1 ? 'person' : 'people'} on the list
-        </p>
+        <p className={styles.count}>{count.toLocaleString()} on the list</p>
       )}
     </form>
   )

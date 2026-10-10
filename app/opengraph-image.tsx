@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { site } from '@/lib/site'
 
-export const alt = `${site.name} — First Drop`
+export const alt = `${site.name} — Drop 001`
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -16,20 +16,15 @@ export default function OgImage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'radial-gradient(ellipse at 50% 0%, #3a2e0c 0%, #070707 65%)',
-          color: '#f4efe3',
-          fontFamily: 'sans-serif',
+          background: '#121212',
+          color: '#f3f3f3',
+          fontFamily: 'serif',
         }}
       >
-        <div style={{ fontSize: 26, letterSpacing: 10, color: '#8f887a', textTransform: 'uppercase' }}>
+        <div style={{ fontSize: 120, letterSpacing: 6 }}>{site.name}</div>
+        <div style={{ marginTop: 30, fontSize: 30, letterSpacing: 12, textTransform: 'uppercase', opacity: 0.7 }}>
           Drop 001
         </div>
-        <div style={{ display: 'flex', marginTop: 20, fontSize: 150, fontWeight: 900, letterSpacing: -2 }}>
-          <span>ORO&nbsp;</span>
-          <span style={{ color: '#d4af37' }}>CARTEL</span>
-        </div>
-        <div style={{ marginTop: 24, fontSize: 30, color: '#8f887a' }}>{site.tagline}</div>
-        <div style={{ marginTop: 40, fontSize: 24, color: '#d4af37', letterSpacing: 6 }}>{site.domain.toUpperCase()}</div>
       </div>
     ),
     size

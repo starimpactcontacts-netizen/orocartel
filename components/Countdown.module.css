@@ -1,47 +1,47 @@
 .wrap {
   display: flex;
-  gap: clamp(10px, 3vw, 20px);
   justify-content: center;
 }
 
 .unit {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  min-width: clamp(64px, 18vw, 92px);
-  padding: 14px 8px 10px;
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(212, 175, 55, 0.08), rgba(212, 175, 55, 0.01));
+  text-align: center;
+}
+
+.unit > div {
+  display: flex;
+  flex-direction: column;
+  min-width: clamp(58px, 16vw, 84px);
+}
+
+.sep {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .num {
   font-family: var(--font-display);
-  font-size: clamp(32px, 8vw, 52px);
+  font-weight: 500;
+  font-size: clamp(30px, 8vw, 44px);
   line-height: 1;
-  color: var(--gold);
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .label {
-  margin-top: 8px;
-  font-size: 11px;
-  letter-spacing: 0.24em;
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
 }
 
-.soon,
-.live {
-  font-size: 13px;
-  letter-spacing: 0.3em;
+.text {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold);
-}
-
-.live {
-  animation: pulse 1.6s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  50% { opacity: 0.45; }
 }
