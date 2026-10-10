@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from 'next'
-import { Assistant, Cormorant_Garamond, Italiana } from 'next/font/google'
+import { Assistant, Cormorant_Garamond } from 'next/font/google'
 import { site } from '@/lib/site'
 import './globals.css'
 
-const logo = Italiana({ weight: '400', subsets: ['latin'], variable: '--font-logo' })
 const display = Cormorant_Garamond({ weight: ['500', '600'], subsets: ['latin'], variable: '--font-display' })
 const body = Assistant({ subsets: ['latin'], variable: '--font-body' })
 
@@ -31,7 +30,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${logo.variable} ${display.variable} ${body.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body>{children}</body>
     </html>
   )

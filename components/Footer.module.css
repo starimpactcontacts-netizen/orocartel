@@ -8,10 +8,15 @@
   text-align: center;
 }
 
+.mark {
+  width: 150px;
+  height: auto;
+  margin-bottom: -6px;
+}
+
 .logo {
-  font-family: var(--font-logo);
-  font-size: 30px;
-  letter-spacing: 0.04em;
+  width: auto;
+  height: 22px;
 }
 
 .links {

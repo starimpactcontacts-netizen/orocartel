@@ -14,7 +14,10 @@ export default function NotFound() {
         textAlign: 'center',
       }}
     >
-      <h1 style={{ fontFamily: 'var(--font-logo)', fontWeight: 400, fontSize: 44 }}>OROCARTEL</h1>
+      <img src="/greyhound.png" alt="" width={1477} height={462} style={{ width: 260, height: 'auto' }} />
+      <h1>
+        <img src="/wordmark.png" alt="OROCARTEL" width={657} height={85} style={{ height: 30, width: 'auto' }} />
+      </h1>
       <p style={{ color: 'var(--muted)' }}>This page doesn&apos;t exist.</p>
       <Link
         href="/"

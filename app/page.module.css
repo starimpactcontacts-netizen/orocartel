@@ -2,8 +2,9 @@
   position: relative;
   min-height: min(92vh, 860px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+  padding-top: 90px;
   background:
     radial-gradient(ellipse at 50% 30%, rgba(255, 255, 255, 0.07), transparent 60%),
     linear-gradient(180deg, #2b2b2b 0%, #1b1b1b 60%, #121212 100%);
@@ -23,8 +24,14 @@
   flex-direction: column;
   align-items: center;
   gap: 26px;
-  padding: 0 16px clamp(56px, 12vh, 110px);
+  padding: 40px 16px 60px;
   text-align: center;
+}
+
+.mark {
+  width: min(78vw, 560px);
+  height: auto;
+  margin-bottom: clamp(20px, 6vh, 60px);
 }
 
 .kicker {

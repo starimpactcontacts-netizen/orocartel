@@ -29,7 +29,9 @@ export default function Header({ overlay = false }: { overlay?: boolean }) {
           )}
         </button>
 
-        <Link href="/" className={styles.logo}>{site.name}</Link>
+        <Link href="/" className={styles.logo} aria-label={site.name}>
+          <img src="/wordmark.png" alt={site.name} width={657} height={85} />
+        </Link>
 
         <a href="/#list" className={styles.iconBtn} aria-label="Join the list">
           <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.2">

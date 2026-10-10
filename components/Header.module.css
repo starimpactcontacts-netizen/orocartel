@@ -41,10 +41,14 @@
 }
 
 .logo {
-  font-family: var(--font-logo);
-  font-size: clamp(30px, 7vw, 44px);
-  letter-spacing: 0.04em;
-  line-height: 1;
+  display: block;
+  line-height: 0;
+}
+
+.logo img {
+  display: block;
+  width: auto;
+  height: clamp(20px, 5.4vw, 30px);
 }
 
 .menu {
