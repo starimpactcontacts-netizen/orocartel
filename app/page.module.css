@@ -44,7 +44,7 @@
   position: absolute;
   top: clamp(20px, 4vw, 48px);
   left: clamp(16px, 4vw, 48px);
-  width: clamp(150px, 42vw, 380px);
+  width: clamp(110px, 30vw, 260px);
   height: auto;
   pointer-events: none;
 }
