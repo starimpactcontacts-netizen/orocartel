@@ -52,7 +52,7 @@
   pointer-events: none;
 }
 
-/* Emblem loop: hold white, flicker black/white, fade out, rest, fade back in. */
+/* Emblem loop: hold black, flicker white/black, fade out, rest, fade back in. */
 .ramWhite,
 .ramBlack {
   position: absolute;
@@ -63,15 +63,15 @@
 }
 
 .ramWhite {
-  animation-name: ramWhite;
+  opacity: 0;
+  animation-name: ramFlicker;
 }
 
 .ramBlack {
-  opacity: 0;
-  animation-name: ramBlack;
+  animation-name: ramHold;
 }
 
-@keyframes ramWhite {
+@keyframes ramHold {
   0%, 40% { opacity: 1; }
   40.01%, 43% { opacity: 0; }
   43.01%, 46% { opacity: 1; }
@@ -79,7 +79,7 @@
   72%, 100% { opacity: 1; }
 }
 
-@keyframes ramBlack {
+@keyframes ramFlicker {
   0%, 40% { opacity: 0; }
   40.01%, 43% { opacity: 1; }
   43.01%, 46% { opacity: 0; }
