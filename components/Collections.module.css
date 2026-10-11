@@ -4,7 +4,7 @@
 
 .h2 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 400;
   font-size: clamp(34px, 7vw, 46px);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -55,7 +55,7 @@
 
 .soon {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 12px;
   letter-spacing: 0.24em;
   text-transform: uppercase;

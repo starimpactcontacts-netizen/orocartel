@@ -4,6 +4,8 @@
   --text: #f3f3f3;
   --muted: rgba(243, 243, 243, 0.62);
   --line: rgba(243, 243, 243, 0.14);
+  --font-display: var(--font-serif);
+  --font-body: var(--font-serif);
   color-scheme: dark;
 }
 

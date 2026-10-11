@@ -23,7 +23,7 @@
 
 .num {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 400;
   font-size: clamp(30px, 8vw, 44px);
   line-height: 1;
   font-variant-numeric: lining-nums tabular-nums;
@@ -32,7 +32,7 @@
 .label {
   margin-top: 6px;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -40,7 +40,7 @@
 
 .text {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 400;
   font-size: 18px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
