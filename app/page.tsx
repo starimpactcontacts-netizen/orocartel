@@ -41,7 +41,7 @@ const PERKS = [
 export default function Home() {
   return (
     <main>
-      <Header />
+      <Header overHero={!!site.heroImage} />
 
       <section
         className={site.heroImage ? `${styles.hero} ${styles.heroPhoto}` : styles.hero}

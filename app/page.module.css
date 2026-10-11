@@ -19,6 +19,7 @@
 
 /* Dark photo: flip the hero's local palette to light-on-dark */
 .heroPhoto {
+  min-height: 100svh;
   --text: #ffffff;
   --bg: #121212;
   --line-strong: rgba(255, 255, 255, 0.55);
@@ -37,12 +38,12 @@
 }
 
 .heroPhoto .heroShade {
-  background: linear-gradient(160deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 40%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%);
 }
 
 .heroRam {
   position: absolute;
-  top: clamp(20px, 4vw, 48px);
+  top: calc(var(--header-h) + clamp(12px, 3vw, 40px));
   left: clamp(16px, 4vw, 48px);
   width: clamp(110px, 30vw, 260px);
   height: auto;
