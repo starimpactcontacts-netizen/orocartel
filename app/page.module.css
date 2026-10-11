@@ -19,7 +19,7 @@
 
 /* Dark photo: flip the hero's local palette to light-on-dark */
 .heroPhoto {
-  min-height: 100svh;
+  min-height: 88svh;
   --text: #ffffff;
   --bg: #121212;
   --line-strong: rgba(255, 255, 255, 0.55);
