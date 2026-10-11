@@ -38,7 +38,9 @@
 }
 
 .heroPhoto .heroShade {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%);
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 35%);
 }
 
 .heroRam {
@@ -58,6 +60,33 @@
 
 
 
+
+.heroCaption {
+  position: absolute;
+  left: clamp(16px, 4vw, 48px);
+  right: clamp(16px, 4vw, 48px);
+  bottom: clamp(36px, 7vh, 72px);
+  color: #fff;
+}
+
+.heroTitle {
+  font-weight: 400;
+  font-size: clamp(26px, 6.4vw, 44px);
+  line-height: 1.15;
+}
+
+.heroLink {
+  display: inline-block;
+  margin-top: clamp(14px, 2.4vw, 22px);
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid #fff;
+  font-size: clamp(17px, 4.2vw, 22px);
+  letter-spacing: 0.01em;
+}
+
+.heroLink:hover {
+  opacity: 0.8;
+}
 
 .h2 {
   margin-top: 22px;

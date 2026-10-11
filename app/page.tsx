@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Header from '@/components/Header'
 import SiteInfo from '@/components/SiteInfo'
 import Footer from '@/components/Footer'
@@ -19,6 +20,12 @@ export default function Home() {
         )}
         <div className={styles.heroShade} aria-hidden />
         <img src="/ram.png" alt="" className={styles.heroRam} width={1085} height={710} />
+        <div className={styles.heroCaption}>
+          <h1 className={styles.heroTitle}>001: The Henley</h1>
+          <Link href="/products/henley-slim-fit-long-sleeve" className={styles.heroLink}>
+            Discover The Henley
+          </Link>
+        </div>
       </section>
 
       <section id="shop" className={styles.shop}>
