@@ -1,0 +1,132 @@
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 80px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+.media {
+  aspect-ratio: 4 / 5;
+  background: #fff;
+}
+
+.media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.name {
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: clamp(28px, 6vw, 38px);
+  line-height: 1.15;
+}
+
+.price {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+
+.soldOut {
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.label {
+  margin-top: 28px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sizes {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.size {
+  min-width: 52px;
+  padding: 10px 14px;
+  border: 1px solid rgba(243, 243, 243, 0.55);
+  text-align: center;
+  font-size: 14px;
+}
+
+.sizeOff {
+  border-color: var(--line);
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.buy {
+  margin-top: 24px;
+  width: 100%;
+  padding: 16px;
+  background: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--text);
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+
+.buy:disabled {
+  background: transparent;
+  color: var(--muted);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+
+.desc {
+  margin-top: 24px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.notify {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.notifyTitle {
+  margin-bottom: 16px;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 860px) {
+  .main {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    padding-top: 40px;
+  }
+
+  .info {
+    position: sticky;
+    top: 40px;
+    align-self: start;
+  }
+}

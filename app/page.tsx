@@ -3,6 +3,8 @@ import Countdown from '@/components/Countdown'
 import Collections from '@/components/Collections'
 import WaitlistForm from '@/components/WaitlistForm'
 import Footer from '@/components/Footer'
+import ProductCard from '@/components/ProductCard'
+import { products } from '@/lib/products'
 import { site } from '@/lib/site'
 import styles from './page.module.css'
 
@@ -62,6 +64,15 @@ export default function Home() {
           </div>
         ))}
       </div>
+
+      <section id="shop" className={styles.shop}>
+        <h2 className={styles.h2}>Shop</h2>
+        <div className={styles.grid}>
+          {products.map((p) => (
+            <ProductCard key={p.slug} product={p} />
+          ))}
+        </div>
+      </section>
 
       <Collections />
 

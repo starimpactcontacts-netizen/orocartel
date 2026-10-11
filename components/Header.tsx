@@ -44,6 +44,7 @@ export default function Header({ overlay = false }: { overlay?: boolean }) {
 
       {open && (
         <nav className={styles.menu} onClick={() => setOpen(false)}>
+          <a href="/#shop">Shop</a>
           <a href="/#collections">Collections</a>
           <a href="/#list">Join the list</a>
           {site.instagram && <a href={site.instagram} target="_blank" rel="noreferrer">Instagram</a>}
