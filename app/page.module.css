@@ -54,49 +54,10 @@
 
 
 
-.perks {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 34px 8px;
-  border-bottom: 1px solid var(--line);
-}
 
-.perk {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 0 8px;
-  text-align: center;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(13px, 3.4vw, 16px);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
 
-.perk + .perk {
-  border-left: 1px solid var(--line-strong);
-}
 
-.list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: clamp(60px, 10vw, 100px) 16px;
-  border-top: 1px solid var(--line);
-  text-align: center;
-  scroll-margin-top: 20px;
-}
 
-.badge {
-  padding: 8px 14px;
-  background: var(--text);
-  color: var(--bg);
-  font-size: 13px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
 
 .h2 {
   margin-top: 22px;
@@ -107,18 +68,12 @@
   text-transform: uppercase;
 }
 
-.sub {
-  margin: 12px 0 34px;
-  max-width: 420px;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.5;
-}
 
 .shop {
   max-width: 1200px;
   margin: 0 auto;
-  padding: clamp(60px, 10vw, 100px) 16px 0;
+  padding: clamp(60px, 10vw, 100px) 16px clamp(20px, 4vw, 40px);
+  scroll-margin-top: var(--header-h);
   text-align: center;
 }
 

@@ -78,7 +78,6 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
         <nav className={styles.panel} onClick={close}>
           <div className={styles.menuLinks}>
             <a href="/#shop">Shop</a>
-            <a href="/#collections">Collections</a>
             <a href="/#list">Join the list</a>
             {site.instagram && <a href={site.instagram} target="_blank" rel="noreferrer">Instagram</a>}
             {site.tiktok && <a href={site.tiktok} target="_blank" rel="noreferrer">TikTok</a>}

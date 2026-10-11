@@ -11,11 +11,3 @@ export const site = {
   tiktok: process.env.NEXT_PUBLIC_TIKTOK_URL || '',
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'orocartel.com@gmail.com',
 }
-
-// Collection tiles on the homepage. Add `image: '/file.jpg'` (from /public) once photos are ready.
-export const collections: { name: string; image?: string }[] = [
-  { name: 'Outerwear' },
-  { name: 'Shirts' },
-  { name: 'Denim' },
-  { name: 'Accessories' },
-]
