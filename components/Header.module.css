@@ -13,19 +13,19 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: clamp(10px, 3vw, 22px);
+  gap: clamp(6px, 2vw, 14px);
   min-width: 0;
   line-height: 0;
 }
 
 .mark {
-  height: clamp(28px, 7.4vw, 46px);
+  height: clamp(26px, 6.8vw, 40px);
   width: auto;
   flex-shrink: 0;
 }
 
 .word {
-  height: clamp(25px, 6.6vw, 40px);
+  height: clamp(19px, 5vw, 30px);
   width: auto;
   min-width: 0;
 }
