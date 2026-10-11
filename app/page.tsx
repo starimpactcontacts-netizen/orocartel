@@ -19,7 +19,10 @@ export default function Home() {
           <img src={site.heroImage} alt="" className={styles.heroImg} fetchPriority="high" />
         )}
         <div className={styles.heroShade} aria-hidden />
-        <img src="/ram.png" alt="" className={styles.heroRam} width={1085} height={710} />
+        <div className={styles.heroRam} aria-hidden>
+          <img src="/ram.png" alt="" className={styles.ramWhite} width={1085} height={710} />
+          <img src="/ram-dark.png" alt="" className={styles.ramBlack} width={1085} height={710} />
+        </div>
         <div className={styles.heroCaption}>
           <h1 className={styles.heroTitle}>001: The Henley</h1>
           <Link href="/products/henley-slim-fit-long-sleeve" className={styles.heroLink}>
