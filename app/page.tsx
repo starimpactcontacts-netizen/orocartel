@@ -31,6 +31,16 @@ export default function Home() {
         </div>
       </section>
 
+      <section className={styles.intro}>
+        <p className={styles.introLead}>Esta noche, sin hablar.</p>
+        <p className={styles.introText}>
+          001: The Henley. Black, buttoned low, made to move from daylight into the night.
+        </p>
+        <Link href="/products/henley-slim-fit-long-sleeve" className={styles.introLink}>
+          Shop The Henley
+        </Link>
+      </section>
+
       <section id="shop" className={styles.shop}>
         <h2 className={styles.h2}>Shop</h2>
         <div className={styles.grid}>
