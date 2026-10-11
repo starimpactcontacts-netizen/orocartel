@@ -45,9 +45,11 @@ export default function Home() {
       <Header />
 
       <section
-        className={styles.hero}
-        style={site.heroImage ? { backgroundImage: `url(${site.heroImage})` } : undefined}
+        className={site.heroImage ? `${styles.hero} ${styles.heroPhoto}` : styles.hero}
       >
+        {site.heroImage && (
+          <img src={site.heroImage} alt="" className={styles.heroImg} fetchPriority="high" />
+        )}
         <div className={styles.heroShade} aria-hidden />
         <div className={styles.heroInner}>
           <p className={styles.kicker}>Drop 001</p>

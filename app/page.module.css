@@ -17,6 +17,29 @@
   background: none;
 }
 
+/* Dark photo: flip the hero's local palette to light-on-dark */
+.heroPhoto {
+  --text: #ffffff;
+  --bg: #121212;
+  --line-strong: rgba(255, 255, 255, 0.55);
+  align-items: flex-end;
+  color: var(--text);
+  background: #0e0b09;
+}
+
+.heroImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 30%;
+}
+
+.heroPhoto .heroShade {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.55) 100%);
+}
+
 .heroInner {
   position: relative;
   display: flex;
