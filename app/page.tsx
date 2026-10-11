@@ -50,7 +50,7 @@ export default function Home() {
           <img src={site.heroImage} alt="" className={styles.heroImg} fetchPriority="high" />
         )}
         <div className={styles.heroShade} aria-hidden />
-        <img src="/ram.png" alt="" className={styles.heroRam} width={1313} height={833} />
+        <img src="/ram.png" alt="" className={styles.heroRam} width={1085} height={710} />
       </section>
 
       <div className={styles.perks}>
