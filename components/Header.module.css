@@ -18,14 +18,9 @@
   line-height: 0;
 }
 
-.mark {
-  height: clamp(26px, 6.8vw, 40px);
-  width: auto;
-  flex-shrink: 0;
-}
 
 .word {
-  height: clamp(19px, 5vw, 30px);
+  height: clamp(22px, 5.8vw, 34px);
   width: auto;
   min-width: 0;
 }

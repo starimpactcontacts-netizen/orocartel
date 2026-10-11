@@ -1,5 +1,4 @@
 import Header from '@/components/Header'
-import Countdown from '@/components/Countdown'
 import Collections from '@/components/Collections'
 import WaitlistForm from '@/components/WaitlistForm'
 import Footer from '@/components/Footer'
@@ -51,11 +50,7 @@ export default function Home() {
           <img src={site.heroImage} alt="" className={styles.heroImg} fetchPriority="high" />
         )}
         <div className={styles.heroShade} aria-hidden />
-        <div className={styles.heroInner}>
-          <p className={styles.kicker}>Drop 001</p>
-          <Countdown target={site.dropDate} />
-          <a href="#list" className={styles.heroBtn}>Get early access</a>
-        </div>
+        <img src="/ram.png" alt="" className={styles.heroRam} width={1313} height={833} />
       </section>
 
       <div className={styles.perks}>

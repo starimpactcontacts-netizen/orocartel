@@ -19,7 +19,6 @@ export default function Header() {
     <>
       <header className={styles.header}>
         <Link href="/" className={styles.logo} aria-label={site.name} onClick={() => setOpen(false)}>
-          <img src="/ram-dark.png" alt="" className={styles.mark} width={1313} height={833} />
           <img src="/wordmark-dark.png" alt={site.name} className={styles.word} width={659} height={87} />
         </Link>
 
