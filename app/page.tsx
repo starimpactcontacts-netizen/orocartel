@@ -42,7 +42,9 @@ export default function Home() {
       </section>
 
       <section id="shop" className={styles.shop}>
-        <h2 className={styles.h2}>Shop</h2>
+        <p className={styles.count}>
+          {products.length} {products.length === 1 ? 'Article' : 'Articles'}
+        </p>
         <div className={styles.grid}>
           {products.map((p) => (
             <ProductCard key={p.slug} product={p} />
