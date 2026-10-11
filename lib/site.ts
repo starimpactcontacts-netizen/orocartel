@@ -4,7 +4,6 @@ export const site = {
   url: 'https://www.orocartel.com',
   tagline: 'Limited runs. No restocks.',
   description: 'OROCARTEL — Drop 001. Join the list for early access before the public release.',
-  announcement: 'Drop 001 — join the list for early access',
   // Drop a photo in /public (e.g. /hero.jpg) and set its path here to fill the hero.
   heroImage: '',
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',
