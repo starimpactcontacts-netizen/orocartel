@@ -11,7 +11,7 @@
   width: 100%;
   padding: 15px 16px;
   background: transparent;
-  border: 1px solid rgba(243, 243, 243, 0.55);
+  border: 1px solid var(--line-strong);
   color: var(--text);
   font: inherit;
   font-size: 16px;
@@ -78,7 +78,7 @@
 }
 
 .error {
-  color: #ff7a7a;
+  color: #b42318;
   font-size: 14px;
   text-align: center;
 }

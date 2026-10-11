@@ -1,12 +1,13 @@
 :root {
-  --bg: #121212;
-  --surface: #1a1a1a;
-  --text: #f3f3f3;
-  --muted: rgba(243, 243, 243, 0.62);
-  --line: rgba(243, 243, 243, 0.14);
+  --bg: #ffffff;
+  --surface: #f4f4f2;
+  --text: #121212;
+  --muted: rgba(18, 18, 18, 0.6);
+  --line: rgba(18, 18, 18, 0.12);
+  --line-strong: rgba(18, 18, 18, 0.5);
   --font-display: var(--font-serif);
   --font-body: var(--font-serif);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {

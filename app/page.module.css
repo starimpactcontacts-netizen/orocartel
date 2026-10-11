@@ -6,8 +6,8 @@
   justify-content: center;
   padding-top: 90px;
   background:
-    radial-gradient(ellipse at 50% 30%, rgba(255, 255, 255, 0.07), transparent 60%),
-    linear-gradient(180deg, #2b2b2b 0%, #1b1b1b 60%, #121212 100%);
+    radial-gradient(ellipse at 50% 35%, #ffffff 0%, transparent 65%),
+    linear-gradient(180deg, #f6f6f4 0%, #ecebe8 100%);
   background-size: cover;
   background-position: center;
 }
@@ -15,7 +15,7 @@
 .heroShade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 25%, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
+  background: none;
 }
 
 .heroInner {
@@ -71,7 +71,7 @@
 }
 
 .perk + .perk {
-  border-left: 1px solid rgba(243, 243, 243, 0.3);
+  border-left: 1px solid var(--line-strong);
 }
 
 .list {

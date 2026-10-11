@@ -18,7 +18,7 @@
 .sep {
   width: 1px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.35);
+  background: var(--line-strong);
 }
 
 .num {

@@ -68,7 +68,7 @@
 .size {
   min-width: 52px;
   padding: 10px 14px;
-  border: 1px solid rgba(243, 243, 243, 0.55);
+  border: 1px solid var(--line-strong);
   text-align: center;
   font-size: 14px;
 }
