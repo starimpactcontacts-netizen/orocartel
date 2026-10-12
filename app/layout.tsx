@@ -8,10 +8,10 @@ const serif = Charis_SIL({ weight: ['400', '700'], subsets: ['latin'], variable:
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name} — Drop 001`, template: `%s · ${site.name}` },
+  title: { default: site.name, template: `%s · ${site.name}` },
   description: site.description,
   openGraph: {
-    title: `${site.name} — Drop 001`,
+    title: site.name,
     description: site.description,
     url: site.url,
     siteName: site.name,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${site.name} — Drop 001`,
+    title: site.name,
     description: site.description,
   },
 }
