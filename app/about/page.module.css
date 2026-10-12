@@ -1,0 +1,35 @@
+.main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(48px, 10vw, 96px) clamp(20px, 5vw, 40px) clamp(72px, 12vw, 120px);
+  font-size: clamp(18px, 4.4vw, 21px);
+  line-height: 1.55;
+}
+
+.h1 {
+  font-weight: 400;
+  font-size: clamp(32px, 8vw, 46px);
+  line-height: 1.1;
+  margin-bottom: clamp(36px, 7vw, 56px);
+}
+
+.block + .block {
+  margin-top: clamp(28px, 6vw, 40px);
+}
+
+.h2 {
+  font-weight: 400;
+  font-style: italic;
+  font-size: inherit;
+  margin-bottom: 6px;
+}
+
+.block p {
+  color: var(--muted);
+}
+
+.block a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

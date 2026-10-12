@@ -29,16 +29,17 @@ export default function SiteInfo() {
           <summary>Customer Support <Chevron /></summary>
           <div className={styles.body}>
             {site.contactEmail && (
-              <a href={`mailto:${site.contactEmail}`}>Contact us — {site.contactEmail}</a>
+              <a href={`mailto:${site.contactEmail}`}>Questions or orders: {site.contactEmail}</a>
             )}
             <p>Sold out? Get a restock alert from the product page.</p>
           </div>
         </details>
 
         <details className={styles.item}>
-          <summary>About {site.name} <Chevron /></summary>
+          <summary>About Orocartel <Chevron /></summary>
           <div className={styles.body}>
-            <p>{site.tagline} Every piece is made in a limited run, and list members get first access.</p>
+            <p>Oro is Spanish for gold. A cartel is a crew.</p>
+            <Link href="/about">About Orocartel</Link>
           </div>
         </details>
 

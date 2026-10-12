@@ -79,6 +79,7 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
           <div className={styles.menuLinks}>
             <a href="/#shop">Shop</a>
             <a href="/#list">Join the list</a>
+            <Link href="/about">About</Link>
             {site.instagram && <a href={site.instagram} target="_blank" rel="noreferrer">Instagram</a>}
             {site.tiktok && <a href={site.tiktok} target="_blank" rel="noreferrer">TikTok</a>}
             {site.contactEmail && <a href={`mailto:${site.contactEmail}`}>Contact</a>}

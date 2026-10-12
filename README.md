@@ -25,7 +25,6 @@ To export the list: Supabase → Table Editor → `oro_waitlist` → Export CSV.
 | `NEXT_PUBLIC_DROP_DATE` | no | e.g. `2026-11-14T18:00:00-05:00`. Empty shows "coming soon" |
 | `NEXT_PUBLIC_INSTAGRAM_URL` | no | Footer link is hidden when empty |
 | `NEXT_PUBLIC_TIKTOK_URL` | no | |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | no | Used in the footer and on the privacy page |
 
 `NEXT_PUBLIC_*` values are baked in at build time, so redeploy after you change them.
 
