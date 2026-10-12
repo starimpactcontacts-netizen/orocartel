@@ -16,7 +16,14 @@ export default function Home() {
         className={site.heroImage ? `${styles.hero} ${styles.heroPhoto}` : styles.hero}
       >
         {site.heroImage && (
-          <img src={site.heroImage} alt="" className={styles.heroImg} fetchPriority="high" />
+          <img
+            src={site.heroImage}
+            srcSet={`${site.heroImage} 1179w, ${site.heroImage.replace('.jpg', '@2x.jpg')} 2358w`}
+            sizes="100vw"
+            alt=""
+            className={styles.heroImg}
+            fetchPriority="high"
+          />
         )}
         <div className={styles.heroShade} aria-hidden />
         <div className={styles.heroRam} aria-hidden>
