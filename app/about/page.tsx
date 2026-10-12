@@ -19,6 +19,7 @@ export default function About() {
       <Header />
       <main className={styles.main}>
         <h1 className={styles.h1}>About Orocartel</h1>
+        <p className={styles.lead}>Orocartel is a menswear label from Sweden.</p>
 
         <section className={styles.block}>
           <h2 className={styles.h2}>The name.</h2>

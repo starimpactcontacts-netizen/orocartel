@@ -3,7 +3,7 @@ export const site = {
   domain: 'orocartel.com',
   url: 'https://www.orocartel.com',
   tagline: 'Limited runs. No restocks.',
-  description: 'OROCARTEL — Drop 001. Join the list for early access before the public release.',
+  description: 'Orocartel is a menswear label from Sweden. 001: The Henley.',
   // Drop a photo in /public (e.g. /hero.jpg) and set its path here to fill the hero.
   heroImage: '/hero.jpg',
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',
