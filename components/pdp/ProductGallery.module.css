@@ -1,0 +1,86 @@
+.gallery {
+  position: relative;
+  background: var(--surface);
+}
+
+.label {
+  position: absolute;
+  z-index: 1;
+  top: clamp(16px, 4vw, 24px);
+  left: clamp(16px, 4vw, 40px);
+  font-size: clamp(13px, 3.4vw, 15px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  aspect-ratio: 4 / 5;
+  max-height: 82svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 12% 10% 10%;
+  mix-blend-mode: multiply;
+}
+
+.next {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.dashes {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.dash {
+  width: 36px;
+  height: 2px;
+  padding: 0;
+  border: none;
+  background: var(--line-strong);
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+.dashOn {
+  background: var(--text);
+  opacity: 1;
+}
