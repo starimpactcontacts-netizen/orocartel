@@ -11,7 +11,7 @@ export type Product = {
 export const products: Product[] = [
   {
     slug: 'henley-slim-fit-long-sleeve',
-    name: 'Henley Slim Fit Long Sleeve',
+    name: 'The Henley (Slim Fit)',
     price: 349,
     image: '/products/henley-black.jpg',
     inStock: false,
