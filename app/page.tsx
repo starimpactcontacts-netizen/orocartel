@@ -42,7 +42,6 @@ export default function Home() {
         <p className={styles.introText}>
           001: The Henley. Black, buttoned low, made to move from daylight into the night.
         </p>
-        <p className={styles.introLead}>Esta noche, sin hablar.</p>
         <Link href="/products/henley-slim-fit-long-sleeve" className={styles.introLink}>
           Shop The Henley
         </Link>
