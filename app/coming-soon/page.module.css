@@ -1,0 +1,128 @@
+/* Light-on-dark palette for everything on the photo, including the sign-up field */
+.main {
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.72);
+  --line-strong: rgba(255, 255, 255, 0.6);
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #0e0b09;
+  color: var(--text);
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 30%;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 45%);
+}
+
+.top {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 22px;
+}
+
+.word {
+  height: clamp(22px, 5.8vw, 34px);
+  width: auto;
+}
+
+.ram {
+  position: absolute;
+  top: calc(64px + clamp(12px, 3vw, 40px));
+  left: clamp(16px, 4vw, 48px);
+  width: clamp(110px, 30vw, 260px);
+  aspect-ratio: 1085 / 710;
+}
+
+.ramWhite,
+.ramBlack {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: 9s linear infinite;
+}
+
+.ramWhite {
+  opacity: 0;
+  animation-name: flicker;
+}
+
+.ramBlack {
+  animation-name: hold;
+}
+
+@keyframes hold {
+  0%, 40% { opacity: 1; }
+  40.01%, 43% { opacity: 0; }
+  43.01%, 46% { opacity: 1; }
+  46.01%, 64% { opacity: 0; }
+  72%, 100% { opacity: 1; }
+}
+
+@keyframes flicker {
+  0%, 40% { opacity: 0; }
+  40.01%, 43% { opacity: 1; }
+  43.01%, 46% { opacity: 0; }
+  46.01%, 49% { opacity: 1; }
+  55%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ramWhite,
+  .ramBlack {
+    animation: none;
+  }
+}
+
+.bottom {
+  position: absolute;
+  left: clamp(16px, 4vw, 48px);
+  right: clamp(16px, 4vw, 48px);
+  bottom: calc(clamp(36px, 7vh, 72px) + env(safe-area-inset-bottom));
+}
+
+.title {
+  font-weight: 400;
+  font-size: clamp(30px, 7.4vw, 48px);
+  line-height: 1.1;
+}
+
+.sub {
+  margin-top: 10px;
+  font-size: clamp(16px, 4vw, 18px);
+  color: var(--muted);
+}
+
+.form {
+  margin-top: 22px;
+  max-width: 440px;
+}
+
+.form input::placeholder {
+  color: var(--muted);
+}
+
+.contact {
+  display: inline-block;
+  margin-top: 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.contact:hover {
+  color: var(--text);
+}

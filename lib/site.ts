@@ -1,4 +1,6 @@
 export const site = {
+  // true: every page shows the coming-soon screen. Set to false to open the store.
+  comingSoon: true,
   name: 'OROCARTEL',
   domain: 'orocartel.com',
   url: 'https://www.orocartel.com',
