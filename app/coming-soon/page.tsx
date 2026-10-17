@@ -16,6 +16,7 @@ export default function ComingSoon() {
         fetchPriority="high"
       />
       <div className={styles.shade} aria-hidden />
+      <div className={styles.grain} aria-hidden />
 
       <header className={styles.top}>
         <img src="/wordmark.png" alt={site.name} className={styles.word} width={659} height={87} />
