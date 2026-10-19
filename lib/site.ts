@@ -9,7 +9,8 @@ export const site = {
   // Drop a photo in /public (e.g. /hero.jpg) and set its path here to fill the hero.
   heroImage: '/hero.jpg',
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',
-  instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || '',
-  tiktok: process.env.NEXT_PUBLIC_TIKTOK_URL || '',
+  instagram: 'https://www.instagram.com/orocartel',
+  tiktok: 'https://www.tiktok.com/@orocartel',
+  youtube: 'https://www.youtube.com/@theorocartel',
   contactEmail: 'contact@orocartel.com',
 }

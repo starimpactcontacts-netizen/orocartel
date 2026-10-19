@@ -16,6 +16,7 @@ export default function SiteInfo() {
   const socials = [
     site.instagram && { label: 'Instagram', href: site.instagram },
     site.tiktok && { label: 'TikTok', href: site.tiktok },
+    site.youtube && { label: 'YouTube', href: site.youtube },
   ].filter(Boolean) as { label: string; href: string }[]
 
   return (

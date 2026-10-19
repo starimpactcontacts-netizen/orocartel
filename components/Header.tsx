@@ -82,6 +82,7 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
             <Link href="/about">About</Link>
             {site.instagram && <a href={site.instagram} target="_blank" rel="noreferrer">Instagram</a>}
             {site.tiktok && <a href={site.tiktok} target="_blank" rel="noreferrer">TikTok</a>}
+            {site.youtube && <a href={site.youtube} target="_blank" rel="noreferrer">YouTube</a>}
             {site.contactEmail && <a href={`mailto:${site.contactEmail}`}>Contact</a>}
             <Link href="/privacy">Privacy</Link>
           </div>
