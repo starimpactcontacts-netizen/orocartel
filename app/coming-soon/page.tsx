@@ -13,8 +13,8 @@ export default function ComingSoon() {
         <div className={styles.clash}>
           <img src="/ram.png" alt="" className={`${styles.introRam} ${styles.fromLeft}`} width={1085} height={710} />
           <img src="/ram.png" alt="" className={`${styles.introRam} ${styles.fromRight}`} width={1085} height={710} />
-          <span className={styles.flash} />
         </div>
+        <img src="/wordmark.png" alt="" className={styles.introWord} width={659} height={87} />
       </div>
 
       <img
