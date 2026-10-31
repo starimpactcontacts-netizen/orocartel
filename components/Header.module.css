@@ -20,6 +20,9 @@
 
 .clear {
   background: transparent;
+}
+
+.clearLight {
   color: #fff;
 }
 
@@ -157,6 +160,6 @@
 }
 
 /* over the photo the icons are white, so flip the badge to white with dark text */
-.clear .badge {
+.clearLight .badge {
   color: #121212;
 }

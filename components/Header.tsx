@@ -10,8 +10,9 @@ type SearchItem = { slug: string; name: string; image: string; formattedPrice: s
 
 const icon = { width: 26, height: 26, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6 }
 
-// `overHero`: start transparent with white marks over the hero photo, turn solid white once scrolled.
-export default function Header({ overHero = false }: { overHero?: boolean }) {
+// `overHero`: start transparent over the hero photo, turn solid white once scrolled.
+// `tone`: marks colour while transparent: 'light' (white) for dark photos, 'dark' for light photos.
+export default function Header({ overHero = false, tone = 'light' }: { overHero?: boolean; tone?: 'light' | 'dark' }) {
   const [panel, setPanel] = useState<'menu' | 'search' | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [query, setQuery] = useState('')
@@ -50,7 +51,7 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
 
   return (
     <>
-      <header className={`${styles.header} ${overHero ? styles.fixed : ''} ${clear ? styles.clear : ''}`}>
+      <header className={`${styles.header} ${overHero ? styles.fixed : ''} ${clear ? styles.clear : ''} ${clear && tone === 'light' ? styles.clearLight : ''}`}>
         <div className={styles.side}>
           <button className={styles.iconBtn} aria-label={panel === 'menu' ? 'Close menu' : 'Open menu'} aria-expanded={panel === 'menu'} onClick={() => toggle('menu')}>
             {panel === 'menu' ? (
@@ -69,7 +70,7 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
         </div>
 
         <Link href="/" className={styles.logo} aria-label={site.name} onClick={close}>
-          <img src={clear ? '/wordmark.png' : '/wordmark-dark.png'} alt={site.name} className={styles.word} width={659} height={87} />
+          <img src={clear && tone === 'light' ? '/wordmark.png' : '/wordmark-dark.png'} alt={site.name} className={styles.word} width={659} height={87} />
         </Link>
 
         <div className={`${styles.side} ${styles.right}`}>

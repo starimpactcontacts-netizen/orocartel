@@ -13,7 +13,7 @@ export default async function Home() {
   const products = await getProducts()
   return (
     <main>
-      <Header />
+      <Header overHero tone="dark" />
 
       {/* Full-bleed campaign photo, no overlay; centred white copy like the beauty houses. */}
       <section className={styles.hero}>

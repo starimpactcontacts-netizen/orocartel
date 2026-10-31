@@ -18,7 +18,7 @@
 @media (min-width: 900px) {
   .hero {
     aspect-ratio: auto;
-    height: min(86vh, 900px);
+    height: min(94vh, 980px);
   }
 
   .heroImg {
