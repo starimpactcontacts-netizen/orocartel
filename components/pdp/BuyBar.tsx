@@ -33,9 +33,8 @@ export default function BuyBar({ product }: { product: Product }) {
   return (
     <>
       <div className={styles.bar}>
-        <span className={styles.size}>{product.formattedPrice}</span>
         <button className={styles.main} onClick={product.inStock ? addToBag : () => setNotify(true)}>
-          {product.inStock ? 'Add to bag' : 'Sold out · Notify me'}
+          {product.inStock ? 'Add to bag' : 'Sold out: notify me'}
         </button>
       </div>
 

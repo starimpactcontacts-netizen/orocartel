@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import styles from './ProductGallery.module.css'
 
-export default function ProductGallery({ images, label, name }: { images: string[]; label: string; name: string }) {
+export default function ProductGallery({ images, name }: { images: string[]; name: string }) {
   const track = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
 
@@ -19,7 +19,6 @@ export default function ProductGallery({ images, label, name }: { images: string
 
   return (
     <div className={styles.gallery}>
-      <p className={styles.label}>{label}</p>
       <div ref={track} className={styles.track} onScroll={onScroll}>
         {images.map((src, i) => (
           <div key={src + i} className={styles.slide}>

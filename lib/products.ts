@@ -16,6 +16,8 @@ export type Product = {
   inStock: boolean
   tagline?: string
   badge?: string
+  summary?: string
+  sections: { title: string; html: string }[] // PRODUCT DETAILS, HOW TO USE, INGREDIENTS AND SAFETY
 }
 
 type WixMedia = { image?: { url?: string } }
@@ -38,6 +40,32 @@ function cleanHtml(html: string) {
     .replace(/<(script|style|iframe|object|embed)[\s\S]*?<\/\1>/gi, '')
     .replace(/\son\w+="[^"]*"/gi, '')
     .replace(/<(?!\/?(h2|h3|p|ul|ol|li|strong|em|b|i|br)\b)[^>]*>/gi, '')
+}
+
+// Wix descriptions come as <h2>Heading</h2> blocks; index them by heading.
+function splitSections(html: string) {
+  const out: Record<string, string> = {}
+  const parts = html.split(/<h2>(.*?)<\/h2>/i)
+  for (let i = 1; i < parts.length; i += 2) out[parts[i].trim().toLowerCase()] = parts[i + 1].trim()
+  return out
+}
+
+const plain = (html: string) => html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+
+function buildSections(html: string, o: { detailsHtml?: string }) {
+  const s = splitSections(html)
+  const details = o.detailsHtml ?? [s.description, s.benefits && `<h3>Benefits</h3>${s.benefits}`].filter(Boolean).join('')
+  const sections = [
+    { title: 'Product details', html: details || html },
+    { title: 'How to use', html: s.application ?? s['how to use'] ?? '' },
+    {
+      title: 'Ingredients and safety',
+      html: s.ingredients
+        ? `${s.ingredients}<p class="note">Ingredient lists can change from time to time. Please refer to the list on the package you receive for the most up-to-date information.</p>`
+        : '',
+    },
+  ]
+  return { sections: sections.filter((x) => x.html), firstSentence: plain(s.description ?? '').split(/(?<=\.)\s/)[0] }
 }
 
 const sizeImage = (url: string, w = 1200) =>
@@ -91,6 +119,10 @@ export async function getProducts(): Promise<Product[]> {
           descriptionHtml: cleanHtml(p.plainDescription ?? ''),
           tagline: o.tagline,
           badge: o.badge,
+          ...(() => {
+            const b = buildSections(cleanHtml(p.plainDescription ?? ''), o)
+            return { sections: b.sections, summary: o.summary ?? b.firstSentence }
+          })(),
           inStock: items.length ? items.some((i) => i.inStock) : p.inventory?.availabilityStatus !== 'OUT_OF_STOCK',
         }
       })

@@ -4,29 +4,18 @@
   right: 0;
   bottom: 0;
   z-index: 30;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1.5px solid var(--text);
   background: var(--bg);
-  padding-bottom: env(safe-area-inset-bottom);
+  padding: 12px clamp(12px, 3vw, 24px) calc(12px + env(safe-area-inset-bottom));
 }
 
-.size,
 .main {
-  height: 64px;
+  width: 100%;
+  height: 56px;
   border: none;
   font-size: clamp(15px, 3.9vw, 17px);
   cursor: pointer;
 }
 
-.size {
-  display: flex;
-  align-items: center;
-  background: var(--bg);
-  color: var(--text);
-  text-align: left;
-  padding: 0 clamp(16px, 5vw, 40px);
-}
 
 .main {
   background: var(--text);
@@ -36,9 +25,6 @@
   text-transform: uppercase;
 }
 
-.size {
-  font-weight: 600;
-}
 
 .main:hover {
   opacity: 0.9;

@@ -1,57 +1,33 @@
-
-
-.block {
+.wrap {
   margin-top: clamp(28px, 6vw, 40px);
-  padding: clamp(24px, 5vw, 32px) 0;
   border-top: 1px solid var(--line);
 }
 
-.h,
-.acc summary {
-  font-weight: 400;
-  font-size: 16px;
-  letter-spacing: 0.14em;
+/* Section names: regular-weight caps, not the heavy headline face. */
+.label,
+.wrap h2.label {
+  font-family: var(--font-body) !important;
+  font-weight: 400 !important;
+  font-size: clamp(16px, 4.2vw, 18px);
+  letter-spacing: 0.02em !important;
   text-transform: uppercase;
 }
 
-.rich {
+.summary {
+  padding: clamp(26px, 6vw, 32px) 0;
+}
+
+.summary p {
   margin-top: 18px;
-  font-size: 16px;
-  line-height: 1.65;
-  color: var(--muted);
+  font-size: clamp(16px, 4.2vw, 18px);
+  line-height: 1.45;
 }
-
-.rich h2,
-.rich h3 {
-  margin: 22px 0 8px;
-  font-weight: 400;
-  font-size: 15px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text);
-}
-
-.rich h2:first-child {
-  display: none; /* Wix repeats a "Description" heading; the block already has one */
-}
-
-.rich p + p {
-  margin-top: 10px;
-}
-
-.rich ul {
-  padding-left: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
 
 .acc {
   border-top: 1px solid var(--line);
 }
 
-.acc:last-of-type {
+.acc:last-child {
   border-bottom: 1px solid var(--line);
 }
 
@@ -59,7 +35,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: clamp(22px, 5vw, 28px) 0;
+  padding: clamp(26px, 6vw, 32px) 0;
   cursor: pointer;
   list-style: none;
 }
@@ -68,58 +44,48 @@
   display: none;
 }
 
-.plus {
+.toggle {
+  display: inline-flex;
   flex-shrink: 0;
-  transition: transform 0.2s ease;
 }
 
-.acc[open] .plus {
-  transform: rotate(45deg);
+.acc[open] .v {
+  display: none;
 }
 
-.acc ul {
-  list-style: none;
-  padding-bottom: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--muted);
+.rich {
+  padding-bottom: clamp(28px, 6vw, 36px);
+  font-size: clamp(16px, 4.2vw, 18px);
+  line-height: 1.45;
 }
 
-.acc a {
-  color: var(--text);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.rich h3 {
+  margin: 22px 0 6px;
+  font-size: inherit;
+  font-weight: 600;
 }
 
-.actions {
-  margin-top: 32px;
+.rich h3:first-child {
+  margin-top: 0;
+}
+
+.rich p + p {
+  margin-top: 16px;
+}
+
+.rich ul {
+  margin-top: 10px;
+  padding-left: 22px;
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.action {
-  display: inline-flex;
-  align-items: center;
-  gap: 20px;
-  padding: 0;
-  background: none;
-  border: none;
-  font-size: 16px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  cursor: pointer;
+.rich ul p {
+  display: inline;
 }
 
-.circle {
-  display: inline-flex;
-  width: 52px;
-  height: 52px;
-  align-items: center;
-  justify-content: center;
-  border: 1.5px solid var(--text);
-  border-radius: 50%;
+.rich :global(.note) {
+  margin-top: 22px;
+  color: var(--muted);
 }

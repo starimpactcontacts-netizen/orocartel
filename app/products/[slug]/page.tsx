@@ -44,7 +44,7 @@ export default async function ProductPage({ params }: Props) {
         </Link>
 
         <div className={styles.top}>
-          <ProductGallery images={product.images} label="Orocartel" name={product.name} />
+          <ProductGallery images={product.images} name={product.name} />
 
           <div className={styles.summary}>
             <div className={styles.titleRow}>

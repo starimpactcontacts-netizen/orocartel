@@ -27,6 +27,8 @@
 
 .slide {
   flex: 0 0 100%;
+  /* Backdrop on the slide itself: iOS Safari won't blend through the scroll layer. */
+  background: var(--surface);
   scroll-snap-align: start;
   aspect-ratio: 1 / 1;
   display: flex;
