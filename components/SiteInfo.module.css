@@ -61,27 +61,18 @@
   text-underline-offset: 3px;
 }
 
-.about {
-  max-width: 760px;
-}
-
 .aboutTitle {
   font-size: clamp(56px, 16vw, 120px);
   line-height: 0.95;
 }
 
-.aboutText {
-  margin-top: clamp(18px, 4.5vw, 24px);
-  font-size: clamp(18px, 4.6vw, 22px);
-  line-height: 1.45;
-}
-
+/* Thick underline under the big title, like a link. */
 .aboutLink {
   display: inline-block;
-  margin-top: clamp(22px, 5.5vw, 30px);
-  padding-bottom: 4px;
-  border-bottom: 1.5px solid var(--text);
-  font-size: 15px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  padding-bottom: clamp(6px, 1.4vw, 10px);
+  border-bottom: clamp(4px, 1.1vw, 7px) solid var(--text);
+}
+
+.aboutLink:hover {
+  opacity: 0.7;
 }
