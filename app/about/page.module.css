@@ -1,38 +1,83 @@
 .main {
-  max-width: 640px;
+  max-width: 720px;
   margin: 0 auto;
   padding: clamp(48px, 10vw, 96px) clamp(20px, 5vw, 40px) clamp(72px, 12vw, 120px);
-  font-size: clamp(18px, 4.4vw, 21px);
+  font-size: clamp(17px, 4.3vw, 19px);
   line-height: 1.55;
 }
 
 .h1 {
-  font-weight: 400;
-  font-size: clamp(32px, 8vw, 46px);
-  line-height: 1.1;
+  font-size: clamp(56px, 16vw, 120px);
+  line-height: 0.95;
 }
 
 .lead {
-  margin: clamp(14px, 3vw, 20px) 0 clamp(36px, 7vw, 56px);
+  margin: clamp(22px, 5vw, 32px) 0 clamp(44px, 9vw, 72px);
+  font-size: clamp(20px, 5vw, 24px);
+  line-height: 1.4;
 }
 
-.block + .block {
-  margin-top: clamp(28px, 6vw, 40px);
+.block + .block,
+.faq,
+.faq + .block {
+  margin-top: clamp(40px, 8vw, 56px);
 }
 
 .h2 {
-  font-weight: 400;
-  font-style: italic;
-  font-size: inherit;
-  margin-bottom: 6px;
+  font-size: clamp(20px, 5vw, 24px);
+  margin-bottom: 12px;
 }
 
-.block p {
-  color: var(--muted);
+.block p + p {
+  margin-top: 14px;
 }
 
-.block a {
-  color: var(--text);
+.block a,
+.qa a {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 20px;
+  padding-bottom: 4px;
+  border-bottom: 1.5px solid var(--text);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none !important;
+}
+
+.qa {
+  border-top: 1px solid var(--line);
+}
+
+.qa:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.qa summary {
+  padding: 18px 0;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 500;
+}
+
+.qa summary::-webkit-details-marker {
+  display: none;
+}
+
+.qa summary::after {
+  content: '+';
+  float: right;
+  font-weight: 400;
+}
+
+.qa[open] summary::after {
+  content: '−';
+}
+
+.qa p {
+  padding-bottom: 20px;
 }

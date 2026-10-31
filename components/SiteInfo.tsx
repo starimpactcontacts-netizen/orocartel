@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { site } from '@/lib/site'
+import { aboutShort } from '@/lib/about'
 import styles from './SiteInfo.module.css'
 
 function Chevron() {
@@ -20,6 +21,18 @@ export default function SiteInfo() {
 
   return (
     <section className={styles.wrap}>
+      <div className={styles.about}>
+        <h2 className={styles.aboutTitle}>About</h2>
+        {aboutShort.map((p) => (
+          <p key={p.slice(0, 24)} className={styles.aboutText}>
+            {p}
+          </p>
+        ))}
+        <Link href="/about" className={styles.aboutLink}>
+          Read more
+        </Link>
+      </div>
+
       <div className={styles.list}>
         <details className={styles.item}>
           <summary>Customer Support <Chevron /></summary>

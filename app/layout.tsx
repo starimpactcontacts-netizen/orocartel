@@ -3,6 +3,7 @@ import { Inter_Tight, Montserrat } from 'next/font/google'
 import { site } from '@/lib/site'
 import { CartProvider } from '@/components/cart/CartProvider'
 import CartDrawer from '@/components/cart/CartDrawer'
+import JsonLd from '@/components/JsonLd'
 import './globals.css'
 
 // Montserrat: the closest open geometric sans to the Gotham-style face luxury beauty houses use.
@@ -36,6 +37,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sans.variable} ${head.variable}`}>
       <body>
+        <JsonLd
+          data={{
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'Organization',
+                '@id': `${site.url}/#org`,
+                name: site.name,
+                url: site.url,
+                logo: `${site.url}/icon.png`,
+                email: site.contactEmail,
+                description: site.description,
+                sameAs: [site.instagram, site.tiktok, site.youtube].filter(Boolean),
+              },
+              { '@type': 'WebSite', '@id': `${site.url}/#site`, name: site.name, url: site.url, publisher: { '@id': `${site.url}/#org` } },
+            ],
+          }}
+        />
         <CartProvider>
           {children}
           <CartDrawer />

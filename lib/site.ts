@@ -15,7 +15,7 @@ export const site = {
   name: 'OROCARTEL',
   domain: 'orocartel.com',
   url: 'https://www.orocartel.com',
-  description: 'Orocartel is the men’s makeup store.',
+  description: 'Orocartel is a men’s makeup store from Sweden. Makeup for men, starting with the CABRÓN Kohl Eye Pencil, a creamy black kohl eyeliner for men.',
   // Homepage copy (placeholder — swap freely)
   heroBadge: 'New',
   heroTitle: 'Cabrón Kohl',
