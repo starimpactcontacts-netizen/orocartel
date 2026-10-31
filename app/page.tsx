@@ -15,27 +15,22 @@ export default async function Home() {
     <main>
       <Header />
 
-      {/* Shown uncropped at its own proportions and never wider than the file,
-          so it is never upscaled; the browser picks the size that fits the screen. */}
+      {/* Full-bleed campaign photo, no overlay; centred white copy like the beauty houses. */}
       <section className={styles.hero}>
-        <div className={styles.heroMedia} style={{ aspectRatio: `${site.hero.width} / ${site.hero.height}` }}>
-          <img
-            src={site.hero.sources[site.hero.sources.length - 1].src}
-            srcSet={site.hero.sources.map((s) => `${s.src} ${s.width}w`).join(', ')}
-            sizes={`(min-width: 900px) min(58vw, ${site.hero.width}px), 100vw`}
-            width={site.hero.width}
-            height={site.hero.height}
-            alt={site.hero.alt}
-            className={styles.heroImg}
-            fetchPriority="high"
-          />
-          <div className={styles.heroRam} aria-hidden>
-            <img src="/ram.png" alt="" className={styles.ramWhite} width={1085} height={710} />
-            <img src="/ram-dark.png" alt="" className={styles.ramBlack} width={1085} height={710} />
-          </div>
-        </div>
+        <img
+          src={site.hero.sources[site.hero.sources.length - 1].src}
+          srcSet={site.hero.sources.map((s) => `${s.src} ${s.width}w`).join(', ')}
+          sizes="100vw"
+          width={site.hero.width}
+          height={site.hero.height}
+          alt={site.hero.alt}
+          className={styles.heroImg}
+          fetchPriority="high"
+        />
         <div className={styles.heroCaption}>
+          {site.heroBadge && <p className={styles.heroBadge}>{site.heroBadge}</p>}
           <h1 className={styles.heroTitle}>{site.heroTitle}</h1>
+          {site.heroText && <p className={styles.heroText}>{site.heroText}</p>}
           <Link href={site.heroHref} className={styles.heroLink}>
             {site.heroLink}
           </Link>

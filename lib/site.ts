@@ -6,8 +6,10 @@ export const site = {
   url: 'https://www.orocartel.com',
   description: 'Orocartel is the men’s makeup store.',
   // Homepage copy (placeholder — swap freely)
-  heroTitle: 'The Cabrón Kohl',
-  heroLink: 'Discover the Cabrón',
+  heroBadge: 'New',
+  heroTitle: 'Cabrón Kohl',
+  heroText: 'Creamy black kohl, made for men.',
+  heroLink: 'Shop now',
   heroHref: '/products/cabron-kohl-eye-pencil',
   introText: 'Orocartel is the first stop for men’s makeup. Considered formulas, nothing loud.',
   introLink: 'Shop all',
