@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { formatKr, useCart } from './CartProvider'
+import { shipping, shippingFor } from '@/lib/shipping'
 import styles from './CartDrawer.module.css'
 
 export default function CartDrawer() {
@@ -84,7 +85,19 @@ export default function CartDrawer() {
                 <span>Subtotal</span>
                 <span>{formatKr(subtotal)}</span>
               </div>
-              <p className={styles.note}>Shipping and taxes calculated at checkout.</p>
+              <div className={styles.row}>
+                <span>Shipping</span>
+                <span>{shippingFor(subtotal) ? formatKr(shippingFor(subtotal)) : 'Free'}</span>
+              </div>
+              <div className={styles.row}>
+                <span>Total</span>
+                <span>{formatKr(subtotal + shippingFor(subtotal))}</span>
+              </div>
+              <p className={styles.note}>
+                {shippingFor(subtotal)
+                  ? `Free shipping from ${formatKr(shipping.freeFrom)}. VAT included.`
+                  : 'VAT included.'}
+              </p>
               {error && <p className={styles.error} role="alert">{error}</p>}
               <button className={styles.checkout} onClick={checkout} disabled={loading}>
                 {loading ? 'Opening checkout…' : 'Checkout'}

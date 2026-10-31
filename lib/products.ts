@@ -78,8 +78,11 @@ export async function getProducts(): Promise<Product[]> {
           variantId: stocked?.variantId ?? '',
           slug: o.slug ?? p.slug,
           name: o.name ?? p.name,
-          price: Number(min?.amount ?? 0),
-          formattedPrice: (min?.formattedAmount ?? '').replace(/(\d)kr$/, '$1 kr'),
+          price: o.price ?? Number(min?.amount ?? 0),
+          formattedPrice:
+            o.price !== undefined
+              ? `${o.price.toLocaleString('sv-SE')} kr`
+              : (min?.formattedAmount ?? '').replace(/(\d)kr$/, '$1 kr'),
           currency: p.currency ?? 'SEK',
           image: gallery[0] ?? '',
           images: gallery,

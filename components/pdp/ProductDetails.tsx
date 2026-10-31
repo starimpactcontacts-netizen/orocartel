@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { shipping } from '@/lib/shipping'
 import { site } from '@/lib/site'
 import type { Product } from '@/lib/products'
 import styles from './ProductDetails.module.css'
@@ -40,7 +41,9 @@ export default function ProductDetails({ product }: { product: Product }) {
       <details className={styles.acc}>
         <summary>Shipping, returns &amp; assistance <Plus /></summary>
         <ul>
-          <li>Shipping costs and delivery times are shown at checkout.</li>
+          <li>
+            Shipping {shipping.fee} kr, free on orders from {shipping.freeFrom} kr. VAT included.
+          </li>
           <li>
             Questions or orders: <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
           </li>
