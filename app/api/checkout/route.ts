@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getProducts } from '@/lib/products'
-import { WIX_STORES_APP_ID, wixConfigured, wixFetch } from '@/lib/wix'
+import { SHIP_TO, stripe, stripeConfigured } from '@/lib/stripe'
 import { site } from '@/lib/site'
 
 type Line = { productId?: unknown; variantId?: unknown; quantity?: unknown }
 
-// Builds a Wix checkout from the bag and returns the Wix-hosted payment URL.
-// Prices and availability always come from Wix, never from the browser.
+// Creates a Stripe Checkout session from the bag. Prices come from the Wix catalogue,
+// never from the browser. The paid order is pushed to Wix by the Stripe webhook.
 export async function POST(req: NextRequest) {
-  if (!wixConfigured() || !process.env.WIX_CLIENT_ID) {
+  if (!stripeConfigured()) {
     return NextResponse.json({ error: 'Checkout is not open yet.' }, { status: 503 })
   }
 
@@ -20,53 +20,47 @@ export async function POST(req: NextRequest) {
   }
 
   const products = await getProducts()
-  const lineItems = (body.items ?? [])
+  const lines = (body.items ?? [])
     .map((l) => {
       const p = products.find((x) => x.id === l.productId)
-      const qty = Math.max(1, Math.min(10, Math.floor(Number(l.quantity) || 1)))
-      if (!p || !p.inStock) return null
+      if (!p || !p.inStock || !p.price) return null
+      const quantity = Math.max(1, Math.min(10, Math.floor(Number(l.quantity) || 1)))
       const variantId = typeof l.variantId === 'string' && l.variantId ? l.variantId : p.variantId
-      return {
-        quantity: qty,
-        catalogReference: { catalogItemId: p.id, appId: WIX_STORES_APP_ID, options: { variantId } },
-      }
+      return { p, quantity, variantId }
     })
-    .filter(Boolean)
-    .slice(0, 50)
+    .filter((l): l is NonNullable<typeof l> => !!l)
+    .slice(0, 20)
 
-  if (!lineItems.length) {
+  if (!lines.length) {
     return NextResponse.json({ error: 'Your bag has no available items.' }, { status: 400 })
   }
 
   try {
-    // Visitor token for the headless OAuth app; checkout links are issued per visitor.
-    const { access_token } = await wixFetch<{ access_token: string }>('/oauth2/token', {
-      body: { clientId: process.env.WIX_CLIENT_ID, grantType: 'anonymous' },
-      revalidate: false,
-      auth: '',
-    })
-
-    const { checkout } = await wixFetch<{ checkout: { id: string } }>('/ecom/v1/checkouts', {
-      body: { lineItems, channelType: 'WEB' },
-      revalidate: false,
-      auth: access_token,
-    })
-
-    const { redirectSession } = await wixFetch<{ redirectSession: { fullUrl: string } }>(
-      '/redirect-session/v1/redirect-session',
-      {
-        body: {
-          ecomCheckout: { checkoutId: checkout.id },
-          callbacks: { postFlowUrl: site.url, thankYouPageUrl: `${site.url}/thank-you` },
+    const origin = req.headers.get('origin') || site.url
+    const session = await stripe().checkout.sessions.create({
+      mode: 'payment',
+      currency: 'sek',
+      line_items: lines.map(({ p, quantity }) => ({
+        quantity,
+        price_data: {
+          currency: 'sek',
+          unit_amount: Math.round(p.price * 100),
+          product_data: { name: p.name, ...(p.image ? { images: [p.image] } : {}) },
         },
-        revalidate: false,
-        auth: access_token,
-      },
-    )
-
-    return NextResponse.json({ url: redirectSession.fullUrl })
+      })),
+      shipping_address_collection: { allowed_countries: SHIP_TO },
+      phone_number_collection: { enabled: true },
+      ...(process.env.STRIPE_SHIPPING_RATE_ID
+        ? { shipping_options: [{ shipping_rate: process.env.STRIPE_SHIPPING_RATE_ID }] }
+        : {}),
+      // Compact cart for the webhook: productId:variantId:qty, comma-separated
+      metadata: { items: lines.map(({ p, variantId, quantity }) => `${p.id}:${variantId}:${quantity}`).join(',') },
+      success_url: `${origin}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/`,
+    })
+    return NextResponse.json({ url: session.url })
   } catch (e) {
-    console.error('Checkout failed', e)
+    console.error('Stripe checkout failed', e)
     return NextResponse.json({ error: 'Checkout is unavailable right now. Please try again.' }, { status: 502 })
   }
 }
