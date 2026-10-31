@@ -7,3 +7,6 @@ export const shipping = {
 }
 
 export const shippingFor = (subtotal: number) => (subtotal >= shipping.freeFrom ? 0 : shipping.fee)
+
+// Countries we deliver to (ISO codes), shown in the checkout address form.
+export const SHIP_TO = ['SE', 'NO', 'DK', 'FI', 'DE', 'NL', 'BE', 'FR', 'ES', 'IT', 'AT', 'PL', 'IE', 'GB', 'US', 'CA'] as const

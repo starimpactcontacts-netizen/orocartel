@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import SignUp from '@/components/SignUp'
 import { useCart } from '@/components/cart/CartProvider'
 import type { Product } from '@/lib/products'
@@ -11,7 +12,7 @@ export default function BuyBar({ product }: { product: Product }) {
   const { add } = useCart()
   const [notify, setNotify] = useState(false)
   const [buying, setBuying] = useState(false)
-  const [error, setError] = useState('')
+  const router = useRouter()
 
   useEffect(() => {
     document.body.style.overflow = notify ? 'hidden' : ''
@@ -32,32 +33,15 @@ export default function BuyBar({ product }: { product: Product }) {
     })
   }
 
-  async function quickBuy() {
-    setError('')
+  // Quick buy: straight to our checkout with just this item (the bag is left as is).
+  function quickBuy() {
     setBuying(true)
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: [{ productId: product.id, variantId: product.variantId, quantity: 1 }] }),
-      })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok || !data.url) throw new Error(data.error || 'Checkout is unavailable right now.')
-      window.location.href = data.url
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Checkout is unavailable right now.')
-      setBuying(false)
-    }
+    router.push(`/checkout?buy=${encodeURIComponent(product.id)}`)
   }
 
   return (
     <>
       <div className={styles.bar}>
-        {error && (
-          <p className={styles.error} role="alert">
-            {error}
-          </p>
-        )}
         {product.inStock ? (
           <div className={styles.pair}>
             <button className={styles.ghost} onClick={addToBag}>

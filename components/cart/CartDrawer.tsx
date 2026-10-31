@@ -1,15 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { formatKr, useCart } from './CartProvider'
 import { shipping, shippingFor } from '@/lib/shipping'
 import styles from './CartDrawer.module.css'
 
 export default function CartDrawer() {
   const { items, subtotal, open, setOpen, setQty } = useCart()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const router = useRouter()
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -18,22 +18,9 @@ export default function CartDrawer() {
     }
   }, [open])
 
-  async function checkout() {
-    setError('')
-    setLoading(true)
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: items.map((i) => ({ productId: i.id, variantId: i.variantId, quantity: i.quantity })) }),
-      })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok || !data.url) throw new Error(data.error || 'Checkout is unavailable right now.')
-      window.location.href = data.url
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Checkout is unavailable right now.')
-      setLoading(false)
-    }
+  function checkout() {
+    setOpen(false)
+    router.push('/checkout')
   }
 
   if (!open) return null
@@ -98,9 +85,8 @@ export default function CartDrawer() {
                   ? `Free shipping from ${formatKr(shipping.freeFrom)}. VAT included.`
                   : 'VAT included.'}
               </p>
-              {error && <p className={styles.error} role="alert">{error}</p>}
-              <button className={styles.checkout} onClick={checkout} disabled={loading}>
-                {loading ? 'Opening checkout…' : 'Checkout'}
+              <button className={styles.checkout} onClick={checkout}>
+                Checkout
               </button>
             </div>
           </>

@@ -63,4 +63,14 @@ export const site = {
   tiktok: 'https://www.tiktok.com/@orocartel',
   youtube: 'https://www.youtube.com/@theorocartel',
   contactEmail: 'contact@orocartel.com',
+  // Required by Swedish e-commerce law (e-handelslagen): fill in when the company is registered.
+  company: {
+    legalName: '', // e.g. 'Orocartel AB' or the sole trader's name
+    orgNumber: '', // organisationsnummer
+    address: '', // street, postcode, city
+    vatNumber: '', // SE…01, once VAT-registered
+  },
+  // Delivery estimate shown in support and terms. Confirm against Blanka's real times.
+  deliveryTime: '7–14 business days',
+  replyTime: 'within 1–2 business days',
 }

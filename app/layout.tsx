@@ -4,6 +4,7 @@ import { site } from '@/lib/site'
 import { CartProvider } from '@/components/cart/CartProvider'
 import CartDrawer from '@/components/cart/CartDrawer'
 import JsonLd from '@/components/JsonLd'
+import CookieBanner from '@/components/CookieBanner'
 import './globals.css'
 
 // Montserrat: the closest open geometric sans to the Gotham-style face luxury beauty houses use.
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <CartDrawer />
         </CartProvider>
+        <CookieBanner />
       </body>
     </html>
   )

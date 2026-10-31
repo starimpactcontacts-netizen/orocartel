@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import type Stripe from 'stripe'
 import { stripe, stripeConfigured } from '@/lib/stripe'
-import { fulfilSession } from '@/lib/fulfil'
+import { fulfilPaymentIntent, fulfilSession } from '@/lib/fulfil'
 
 // Stripe → paid Wix order. Add this URL in Stripe (Developers → Webhooks) for
-// checkout.session.completed and checkout.session.async_payment_succeeded.
+// payment_intent.succeeded (our /checkout page) and checkout.session.completed /
+// checkout.session.async_payment_succeeded (older hosted-checkout sessions).
 // If STRIPE_WEBHOOK_SECRET is set the signature is checked; either way the session is
 // re-read from Stripe, so a forged call can't create an order for an unpaid session.
 export async function POST(req: NextRequest) {
@@ -19,6 +20,17 @@ export async function POST(req: NextRequest) {
       : (JSON.parse(raw) as Stripe.Event)
   } catch {
     return NextResponse.json({ error: 'Bad payload' }, { status: 400 })
+  }
+
+  if (event.type === 'payment_intent.succeeded') {
+    const piId = (event.data.object as { id?: string }).id
+    if (!piId?.startsWith('pi_')) return NextResponse.json({ error: 'Bad payment' }, { status: 400 })
+    try {
+      return NextResponse.json({ received: true, wixOrderId: await fulfilPaymentIntent(piId) })
+    } catch (e) {
+      console.error('Fulfilment failed for', piId, e)
+      return NextResponse.json({ error: 'Fulfilment failed' }, { status: 500 })
+    }
   }
 
   if (event.type !== 'checkout.session.completed' && event.type !== 'checkout.session.async_payment_succeeded') {

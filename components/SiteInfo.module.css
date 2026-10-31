@@ -76,3 +76,24 @@
 .aboutLink:hover {
   opacity: 0.7;
 }
+
+.support {
+  gap: 20px !important;
+}
+
+.support h3 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.support p {
+  margin-top: 6px;
+  line-height: 1.55;
+}
+
+.support a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

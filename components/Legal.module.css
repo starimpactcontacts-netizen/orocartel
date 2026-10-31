@@ -1,0 +1,65 @@
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(48px, 10vw, 96px) clamp(20px, 5vw, 40px) clamp(72px, 12vw, 120px);
+  font-size: clamp(16px, 4.1vw, 17px);
+  line-height: 1.6;
+}
+
+.h1 {
+  font-size: clamp(40px, 11vw, 72px);
+  line-height: 1;
+}
+
+.updated {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.main section {
+  margin-top: clamp(32px, 7vw, 44px);
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.main h2 {
+  font-size: clamp(18px, 4.6vw, 21px);
+  margin-bottom: 10px;
+}
+
+.main p + p,
+.main p + ul,
+.main ul + p {
+  margin-top: 12px;
+}
+
+.main ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.main a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th,
+.table td {
+  padding: 10px 8px 10px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: 600;
+}

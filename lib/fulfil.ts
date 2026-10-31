@@ -2,6 +2,8 @@ import 'server-only'
 import type Stripe from 'stripe'
 import { stripe } from './stripe'
 import { WIX_STORES_APP_ID, wixFetch } from './wix'
+import { getProducts } from './products'
+import { decodeLines } from './order'
 
 type Addr = Stripe.Address | null | undefined
 
@@ -100,5 +102,73 @@ export async function fulfilSession(sessionId: string): Promise<string | null> {
 
   if (pi) await stripe().paymentIntents.update(pi.id, { metadata: { wix_order_id: order.id } })
   console.log('Wix order created', order.number ?? order.id, 'for', sessionId)
+  return order.id
+}
+
+// Our own checkout (/checkout): a succeeded PaymentIntent carrying the order in
+// its metadata becomes a paid Wix order. Idempotent via metadata.wix_order_id.
+export async function fulfilPaymentIntent(id: string): Promise<string | null> {
+  const pi = await stripe().paymentIntents.retrieve(id, { expand: ['latest_charge'] })
+  if (pi.metadata?.store !== 'orocartel' || pi.metadata?.flow !== 'elements' || pi.status !== 'succeeded') return null
+  if (pi.metadata.wix_order_id) return pi.metadata.wix_order_id
+
+  const lines = decodeLines(pi.metadata.items ?? '')
+  if (!lines.length) throw new Error(`PaymentIntent ${id} has no order lines`)
+  const products = await getProducts()
+
+  const charge = pi.latest_charge as Stripe.Charge | null
+  const bill = charge?.billing_details
+  const ship = pi.shipping
+  const email = pi.receipt_email ?? bill?.email ?? undefined
+  const shippingKr = Number(pi.metadata.shipping ?? 0)
+  const subtotalKr = Number(pi.metadata.subtotal ?? 0)
+
+  const lineItems = lines.map((l) => ({
+    quantity: l.quantity,
+    catalogReference: { catalogItemId: l.productId, appId: WIX_STORES_APP_ID, options: { variantId: l.variantId } },
+    productName: { original: products.find((p) => p.id === l.productId)?.name ?? 'Orocartel product' },
+    itemType: { preset: 'PHYSICAL' },
+    price: { amount: l.unitPrice.toFixed(2) },
+    taxDetails: { taxRate: '0', totalTax: amt(0) },
+  }))
+
+  const { order } = await wixFetch<{ order: { id: string; number?: string } }>('/ecom/v1/orders', {
+    revalidate: false,
+    body: {
+      order: {
+        channelInfo: { type: 'WEB' },
+        currency: 'SEK',
+        taxIncludedInPrices: true,
+        paymentStatus: 'PAID',
+        lineItems,
+        buyerInfo: { email },
+        billingInfo: {
+          address: wixAddress(bill?.address ?? ship?.address),
+          contactDetails: contact(bill?.name ?? ship?.name, bill?.phone ?? ship?.phone),
+        },
+        shippingInfo: {
+          title: shippingKr ? 'Standard shipping' : 'Free shipping',
+          logistics: {
+            shippingDestination: {
+              address: wixAddress(ship?.address),
+              contactDetails: contact(ship?.name, ship?.phone),
+            },
+          },
+          cost: { price: { amount: shippingKr.toFixed(2) } },
+        },
+        priceSummary: {
+          subtotal: { amount: subtotalKr.toFixed(2) },
+          shipping: { amount: shippingKr.toFixed(2) },
+          tax: amt(0),
+          discount: amt(0),
+          total: amt(pi.amount_received),
+        },
+        buyerNote: `Paid with Stripe · ${pi.id}`,
+      },
+    },
+  })
+
+  await stripe().paymentIntents.update(pi.id, { metadata: { wix_order_id: order.id } })
+  console.log('Wix order created', order.number ?? order.id, 'for', pi.id)
   return order.id
 }

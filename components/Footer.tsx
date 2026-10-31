@@ -13,6 +13,7 @@ export default function Footer() {
         {site.youtube && <a href={site.youtube} target="_blank" rel="noreferrer">YouTube</a>}
         {site.contactEmail && <a href={`mailto:${site.contactEmail}`}>Contact</a>}
         <Link href="/about">About</Link>
+        <Link href="/terms">Terms</Link>
         <Link href="/privacy">Privacy</Link>
       </nav>
       <span className={styles.copy}>© {new Date().getFullYear()}, {site.name}</span>

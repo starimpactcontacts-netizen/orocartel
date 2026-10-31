@@ -1,0 +1,84 @@
+.main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(48px, 10vw, 96px) clamp(20px, 5vw, 40px) clamp(72px, 12vw, 120px);
+}
+
+.h1 {
+  font-size: clamp(40px, 11vw, 72px);
+  line-height: 1;
+}
+
+.lead {
+  margin-top: 20px;
+  font-size: clamp(17px, 4.3vw, 19px);
+  line-height: 1.5;
+}
+
+.card {
+  margin-top: 36px;
+  padding: clamp(20px, 5vw, 28px);
+  background: var(--surface);
+}
+
+.ref {
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lines {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.total {
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-weight: 600;
+}
+
+.addr {
+  margin-top: 22px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.small {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.link {
+  display: inline-block;
+  margin-top: 24px;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--text);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.help {
+  margin-top: 40px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.help a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
