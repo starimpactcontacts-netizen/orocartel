@@ -25,27 +25,48 @@ export type CatalogOverride = {
   badge?: string // small label on the tile, e.g. NEW
 }
 
+// CABRÓN Kohl: one product per shade in Blanka/Wix. Blanka names them
+// "Khol Eyeliner - <Shade>", so Wix slugs are khol-eyeliner-<shade>.
+const kohlShades = [
+  { key: 'black', name: 'Black', code: 'K-1', hex: '#141414' },
+  { key: 'dark-brown', name: 'Dark Brown', code: 'K-2', hex: '#4a3430' },
+  { key: 'denim', name: 'Denim', code: 'K-41', hex: '#2c5d86' },
+  { key: 'emerald', name: 'Emerald', code: 'K-39', hex: '#2e5b4b' },
+  { key: 'white', name: 'White', code: 'K-36', hex: '#f1f0ec' },
+]
+
+const kohlDetails = (shade: string, code: string) =>
+  `<h3>Key Details</h3><p>Shade: ${shade} ${code}<br>Net wt. 1.1 g / 0.04 oz<br>Made in USA</p>` +
+  '<p>Whether you want a precise line or a smoked-out one, this pencil does both. The creamy formula glides on without tugging along the lash line or waterline, and can be layered with shadow. Long-wearing and comfortable from morning to after dark.</p>' +
+  '<h3>Benefits</h3><ul><li>Creamy texture for blending and smudging</li><li>Intense pigment that lasts all day</li><li>Gentle formula for easy application</li></ul>'
+
+const kohl: Record<string, CatalogOverride> = Object.fromEntries(
+  kohlShades.map((s) => [
+    `khol-eyeliner-${s.key}`,
+    {
+      slug: s.key === 'black' ? 'cabron-kohl-eye-pencil' : `cabron-kohl-eye-pencil-${s.key}`,
+      name: 'CABRÓN Kohl Eye Pencil',
+      // Blanka cost 66,82 kr (Wix "cost" field). At 299 kr the pencil nets ~172 kr
+      // before shipping after 25% VAT and Stripe fees.
+      price: 299,
+      tagline: 'A Creamy Kohl Eye Pencil.',
+      summary: `A creamy ${s.name.toLowerCase()} kohl pencil for the lash line and waterline.`,
+      detailsHtml: kohlDetails(s.name, s.code),
+      badge: 'New',
+      shade: { family: 'cabron-kohl', name: s.name, hex: s.hex },
+      ...(s.key === 'black'
+        ? {
+            gallery: [
+              { src: '/products/cabron-kohl.jpg' },
+              { connector: 1 }, // the pencil on its own
+              { src: '/products/cabron-eyes.jpg', fill: true, ram: 'white-left' },
+            ] as Slide[],
+          }
+        : {}),
+    },
+  ]),
+)
+
 export const catalog: Record<string, CatalogOverride> = {
-  'khol-eyeliner-black': {
-    slug: 'cabron-kohl-eye-pencil',
-    name: 'CABRÓN Kohl Eye Pencil',
-    gallery: [
-      { src: '/products/cabron-kohl.jpg' },
-      { connector: 1 }, // the pencil on its own
-      { src: '/products/cabron-eyes.jpg', fill: true, ram: 'white-left' },
-    ],
-    // Blanka also makes K2 Dark Brown, K41 Denim, K39 Emerald and K36 White: add a
-    // catalog entry with the same family when one is pushed to the store.
-    shade: { family: 'cabron-kohl', name: 'Black', hex: '#141414' },
-    // Blanka cost 66,82 kr (Wix "cost" field). At 299 kr the pencil nets ~172 kr
-    // before shipping after 25% VAT and Stripe fees.
-    price: 299,
-    tagline: 'A Creamy Kohl Eye Pencil.',
-    summary: 'A creamy black kohl pencil for the lash line and waterline.',
-    detailsHtml:
-      '<h3>Key Details</h3><p>Shade: Black K-1<br>Net wt. 1.1 g / 0.04 oz<br>Made in USA</p>' +
-      '<p>Whether you want a precise line or a smoked-out one, this pencil does both. The creamy formula glides on without tugging along the lash line or waterline, and can be layered with shadow. Long-wearing and comfortable from morning to after dark.</p>' +
-      '<h3>Benefits</h3><ul><li>Creamy texture for blending and smudging</li><li>Intense black pigment that lasts all day</li><li>Gentle formula for easy application</li></ul>',
-    badge: 'New',
-  },
+  ...kohl,
 }

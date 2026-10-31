@@ -9,6 +9,17 @@ import styles from './page.module.css'
 
 export const revalidate = 60
 
+// Shades of one line show as one tile; the base shade (shortest URL) represents it.
+function onePerFamily(products: Awaited<ReturnType<typeof getProducts>>) {
+  const best = new Map<string, (typeof products)[number]>()
+  for (const p of products) {
+    const key = p.shade?.family ?? p.slug
+    const cur = best.get(key)
+    if (!cur || p.slug.length < cur.slug.length) best.set(key, p)
+  }
+  return [...best.values()]
+}
+
 export default async function Home() {
   const products = await getProducts()
   return (
@@ -76,7 +87,7 @@ export default async function Home() {
         </Link>
       ))}
 
-      <ProductRail title="Most wanted" products={products} />
+      <ProductRail title="Most wanted" products={onePerFamily(products)} />
 
       <SiteInfo />
 
