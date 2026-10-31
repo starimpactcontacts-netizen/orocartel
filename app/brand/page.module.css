@@ -1,0 +1,79 @@
+.main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 16px 80px;
+}
+
+.h1 {
+  font-weight: 400;
+  font-size: 34px;
+}
+
+.sub {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.list {
+  margin-top: 32px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.item {
+  border: 1px solid var(--line);
+}
+
+.preview {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* checkerboard shows the transparent background */
+.light {
+  background-color: #fff;
+  background-image: conic-gradient(#eee 25%, transparent 0 50%, #eee 0 75%, transparent 0);
+  background-size: 20px 20px;
+}
+
+.dark {
+  background-color: #111;
+  background-image: conic-gradient(#1d1d1d 25%, transparent 0 50%, #1d1d1d 0 75%, transparent 0);
+  background-size: 20px 20px;
+}
+
+.preview img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.meta {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.name {
+  font-size: 18px;
+}
+
+.note {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.btn {
+  margin-top: 10px;
+  align-self: flex-start;
+  padding: 12px 22px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}

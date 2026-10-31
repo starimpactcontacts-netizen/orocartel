@@ -3,7 +3,8 @@ import { site } from '@/lib/site'
 
 // While the store is closed, every page renders the coming-soon screen.
 export function middleware(req: NextRequest) {
-  if (!site.comingSoon || req.nextUrl.pathname === '/coming-soon') return NextResponse.next()
+  const path = req.nextUrl.pathname
+  if (!site.comingSoon || path === '/coming-soon' || path === '/brand') return NextResponse.next()
   return NextResponse.rewrite(new URL('/coming-soon', req.url))
 }
 
