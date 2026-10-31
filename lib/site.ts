@@ -31,12 +31,15 @@ export const site = {
   feature: {
     title: ['Makeup', 'for men'],
     href: '/#shop',
-    width: 1024,
-    height: 1024,
+    width: 2048,
+    height: 2048,
     alt: 'Cabrón Kohl Eye Pencil and box on black leather',
     sources: [
       { src: '/hero/cabron-still-640.jpg', width: 640 },
       { src: '/hero/cabron-still-1024.jpg', width: 1024 },
+      { src: '/hero/cabron-still-1290.jpg', width: 1290 },
+      { src: '/hero/cabron-still-1600.jpg', width: 1600 },
+      { src: '/hero/cabron-still-2048.jpg', width: 2048 },
     ],
   },
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',
