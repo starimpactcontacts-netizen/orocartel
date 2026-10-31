@@ -1,5 +1,6 @@
 import 'server-only'
 import { wixConfigured, wixFetch } from './wix'
+import { catalog } from './catalog'
 
 export type Product = {
   id: string // Wix product id
@@ -66,16 +67,18 @@ export async function getProducts(): Promise<Product[]> {
           .map((m) => m?.image?.url)
           .filter((u, i, a): u is string => !!u && a.indexOf(u) === i)
         const min = p.actualPriceRange?.minValue
+        const o = catalog[p.slug] ?? {}
+        const gallery = [...(o.images ?? []), ...(o.hideConnectorImages ? [] : images.map((u) => sizeImage(u)))]
         return {
           id: p.id,
           variantId: stocked?.variantId ?? '',
-          slug: p.slug,
-          name: p.name,
+          slug: o.slug ?? p.slug,
+          name: o.name ?? p.name,
           price: Number(min?.amount ?? 0),
           formattedPrice: (min?.formattedAmount ?? '').replace(/(\d)kr$/, '$1 kr'),
           currency: p.currency ?? 'SEK',
-          image: images[0] ? sizeImage(images[0]) : '',
-          images: images.map((u) => sizeImage(u)),
+          image: gallery[0] ?? '',
+          images: gallery,
           descriptionHtml: cleanHtml(p.plainDescription ?? ''),
           inStock: items.length ? items.some((i) => i.inStock) : p.inventory?.availabilityStatus !== 'OUT_OF_STOCK',
         }
