@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from 'next'
-import { Charis_SIL } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import { site } from '@/lib/site'
 import { CartProvider } from '@/components/cart/CartProvider'
 import CartDrawer from '@/components/cart/CartDrawer'
 import './globals.css'
 
-// Charis SIL is the open-source cut of Charter, the brand's text face.
-const serif = Charis_SIL({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-serif' })
+// Montserrat: the closest open geometric sans to the Gotham-style face luxury beauty houses use.
+const sans = Montserrat({ weight: ['400', '500', '600'], subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={serif.variable}>
+    <html lang="en" className={sans.variable}>
       <body>
         <CartProvider>
           {children}

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import SiteInfo from '@/components/SiteInfo'
 import Footer from '@/components/Footer'
-import ProductCard from '@/components/ProductCard'
+import ProductRail from '@/components/ProductRail'
 import { getProducts } from '@/lib/products'
 import { site } from '@/lib/site'
 import styles from './page.module.css'
@@ -48,16 +48,7 @@ export default async function Home() {
         </Link>
       </section>
 
-      <section id="shop" className={styles.shop}>
-        <p className={styles.count}>
-          {products.length} {products.length === 1 ? 'Product' : 'Products'}
-        </p>
-        <div className={styles.grid}>
-          {products.map((p) => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
-        </div>
-      </section>
+      <ProductRail title="Most wanted" products={products} />
 
       <SiteInfo />
 

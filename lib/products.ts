@@ -14,6 +14,8 @@ export type Product = {
   images: string[]
   descriptionHtml: string
   inStock: boolean
+  tagline?: string
+  badge?: string
 }
 
 type WixMedia = { image?: { url?: string } }
@@ -87,6 +89,8 @@ export async function getProducts(): Promise<Product[]> {
           image: gallery[0] ?? '',
           images: gallery,
           descriptionHtml: cleanHtml(p.plainDescription ?? ''),
+          tagline: o.tagline,
+          badge: o.badge,
           inStock: items.length ? items.some((i) => i.inStock) : p.inventory?.availabilityStatus !== 'OUT_OF_STOCK',
         }
       })

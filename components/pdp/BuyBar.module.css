@@ -15,7 +15,7 @@
 .main {
   height: 64px;
   border: none;
-  font-size: clamp(16px, 4.2vw, 19px);
+  font-size: clamp(15px, 3.9vw, 17px);
   cursor: pointer;
 }
 
@@ -31,6 +31,13 @@
 .main {
   background: var(--text);
   color: var(--bg);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.size {
+  font-weight: 600;
 }
 
 .main:hover {

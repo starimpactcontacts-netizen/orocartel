@@ -7,6 +7,8 @@ export type CatalogOverride = {
   images?: string[] // shown first, from /public
   hideConnectorImages?: boolean // drop Blanka's stock photos entirely
   price?: number // kr incl. VAT, overrides the Wix price
+  tagline?: string // one line under the name on product tiles
+  badge?: string // small label on the tile, e.g. NEW
 }
 
 export const catalog: Record<string, CatalogOverride> = {
@@ -18,5 +20,7 @@ export const catalog: Record<string, CatalogOverride> = {
     // Blanka cost 66,82 kr (Wix "cost" field). At 299 kr the pencil nets ~172 kr
     // before shipping after 25% VAT and Stripe fees.
     price: 299,
+    tagline: 'A Creamy Kohl Eye Pencil.',
+    badge: 'New',
   },
 }

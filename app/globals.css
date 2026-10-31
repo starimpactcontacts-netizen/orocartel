@@ -6,8 +6,8 @@
   --line: rgba(18, 18, 18, 0.12);
   --line-strong: rgba(18, 18, 18, 0.5);
   --header-h: 64px;
-  --font-display: var(--font-serif);
-  --font-body: var(--font-serif);
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
   color-scheme: light;
 }
 
