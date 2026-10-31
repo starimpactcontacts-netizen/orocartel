@@ -41,8 +41,23 @@ export async function POST(req: NextRequest) {
 
   try {
     const origin = req.headers.get('origin') || site.url
+    // The Stripe account is shared with other brands, so the page is branded per
+    // session and every session is tagged; the webhook ignores anything untagged.
+    const branding = {
+      display_name: site.name,
+      logo: { type: 'url', url: `${site.url}/wordmark-dark.png` },
+      icon: { type: 'url', url: `${site.url}/ram-dark.png` },
+      background_color: '#ffffff',
+      button_color: '#121212',
+      border_style: 'rectangular',
+      font_family: 'noto_serif',
+    }
     const session = await stripe().checkout.sessions.create({
+      // Newer API field, not in this SDK's types yet.
+      ...({ branding_settings: branding } as object),
       mode: 'payment',
+      metadata: { store: 'orocartel' },
+      payment_intent_data: { statement_descriptor_suffix: 'OROCARTEL', metadata: { store: 'orocartel' } },
       currency: 'sek',
       locale: 'auto',
       line_items: lines.map(({ p, quantity }) => ({

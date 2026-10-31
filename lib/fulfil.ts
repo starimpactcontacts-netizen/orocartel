@@ -31,7 +31,8 @@ export async function fulfilSession(sessionId: string): Promise<string | null> {
   const s = await stripe().checkout.sessions.retrieve(sessionId, {
     expand: ['line_items.data.price.product', 'payment_intent'],
   })
-  if (s.payment_status !== 'paid') return null
+  // Same Stripe account serves other brands: only touch Orocartel sessions.
+  if (s.metadata?.store !== 'orocartel' || s.payment_status !== 'paid') return null
 
   const pi = s.payment_intent as Stripe.PaymentIntent | null
   if (pi?.metadata?.wix_order_id) return pi.metadata.wix_order_id
