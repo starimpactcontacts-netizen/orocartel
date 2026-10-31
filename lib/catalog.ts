@@ -25,15 +25,9 @@ export type CatalogOverride = {
   badge?: string // small label on the tile, e.g. NEW
 }
 
-// CABRÓN Kohl: one product per shade in Blanka/Wix. Blanka names them
-// "Khol Eyeliner - <Shade>", so Wix slugs are khol-eyeliner-<shade>.
-const kohlShades = [
-  { key: 'black', name: 'Black', code: 'K-1', hex: '#141414' },
-  { key: 'dark-brown', name: 'Dark Brown', code: 'K-2', hex: '#4a3430' },
-  { key: 'denim', name: 'Denim', code: 'K-41', hex: '#2c5d86' },
-  { key: 'emerald', name: 'Emerald', code: 'K-39', hex: '#2e5b4b' },
-  { key: 'white', name: 'White', code: 'K-36', hex: '#f1f0ec' },
-]
+// CABRÓN Kohl: one product per shade in Blanka/Wix ("Khol Eyeliner - <Shade>",
+// slug khol-eyeliner-<shade>). We sell Black only; add a shade here to sell another.
+const kohlShades = [{ key: 'black', name: 'Black', code: 'K-1', hex: '#141414' }]
 
 const kohlDetails = (shade: string, code: string) =>
   `<h3>Key Details</h3><p>Shade: ${shade} ${code}<br>Net wt. 1.1 g / 0.04 oz<br>Made in USA</p>` +
@@ -58,7 +52,7 @@ const kohl: Record<string, CatalogOverride> = Object.fromEntries(
         ? {
             gallery: [
               { src: '/products/cabron-kohl.jpg' },
-              { connector: 1 }, // the pencil on its own
+              { connector: 0 }, // the pencil on its own (Blanka's #1 is the shade-swatch arm, left out)
               { src: '/products/cabron-eyes.jpg', fill: true, ram: 'white-left' },
             ] as Slide[],
           }
