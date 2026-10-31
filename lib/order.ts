@@ -1,4 +1,5 @@
 import 'server-only'
+import { randomInt } from 'crypto'
 import { getProducts, type Product } from './products'
 import { shippingFor } from './shipping'
 
@@ -38,3 +39,12 @@ export const decodeLines = (s: string) =>
       const [productId, variantId, qty, unit] = part.split(':')
       return { productId, variantId, quantity: Number(qty) || 1, unitPrice: Number(unit) || 0 }
     })
+
+// Customer-facing order number, e.g. 7KQ2M9XA (no 0/O/1/I to avoid mix-ups).
+export function newOrderRef() {
+  const abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  return Array.from({ length: 8 }, () => abc[randomInt(abc.length)]).join('')
+}
+
+export const normaliseRef = (s: string) => s.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 8)
+export const normaliseEmail = (s: string) => s.trim().toLowerCase().slice(0, 200)

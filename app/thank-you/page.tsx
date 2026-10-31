@@ -24,7 +24,7 @@ async function loadOrder(id?: string) {
     const products = await getProducts()
     return {
       status: pi.status,
-      ref: pi.id.slice(-8).toUpperCase(),
+      ref: pi.metadata.ref ?? pi.id.slice(-8).toUpperCase(),
       email: pi.receipt_email,
       ship: pi.shipping,
       total: pi.amount / 100,
@@ -62,6 +62,7 @@ export default async function ThankYou({ searchParams }: Props) {
                 <p className={styles.ref}>
                   Order <strong>#{order.ref}</strong>
                 </p>
+                <p className={styles.small}>Keep this number to track your order.</p>
                 <ul className={styles.lines}>
                   {order.lines.map((l) => (
                     <li key={l.productId}>
@@ -94,6 +95,9 @@ export default async function ThankYou({ searchParams }: Props) {
                   </div>
                 )}
                 {order.email && <p className={styles.small}>Receipt sent to {order.email}</p>}
+                <Link href={`/track?order=${order.ref}`} className={styles.link}>
+                  Track this order
+                </Link>
               </section>
             )}
           </>

@@ -124,7 +124,7 @@ export default function Checkout() {
             )}
             {summary ? (
               <Elements stripe={stripePromise} options={{ clientSecret: summary.clientSecret, appearance}} key={summary.paymentIntentId}>
-                <PayForm total={summary.total} />
+                <PayForm total={summary.total} paymentIntentId={summary.paymentIntentId} />
               </Elements>
             ) : (
               !error && <p className={styles.muted}>Loading secure checkout…</p>
@@ -178,7 +178,7 @@ export default function Checkout() {
   )
 }
 
-function PayForm({ total }: { total: number }) {
+function PayForm({ total, paymentIntentId }: { total: number; paymentIntentId: string }) {
   const stripe = useStripe()
   const elements = useElements()
   const [email, setEmail] = useState('')
@@ -197,6 +197,14 @@ function PayForm({ total }: { total: number }) {
       return
     }
     const a = address.value
+    // Store the email on the order first, so it can be tracked and shown in the account.
+    if (email) {
+      await fetch('/api/checkout/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ paymentIntentId, email }),
+      }).catch(() => {})
+    }
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {

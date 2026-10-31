@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe, stripeConfigured } from '@/lib/stripe'
-import { encodeLines, priceBag, type CartLine } from '@/lib/order'
+import { encodeLines, newOrderRef, priceBag, type CartLine } from '@/lib/order'
 
 // Our own checkout: creates (or updates) a Stripe PaymentIntent for the bag and
 // returns its client secret to the /checkout page, which collects the address and
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
         automatic_payment_methods: { enabled: true },
         description: 'OROCARTEL order',
         statement_descriptor_suffix: 'OROCARTEL',
-        metadata,
+        metadata: { ...metadata, ref: newOrderRef() },
       })
     }
 

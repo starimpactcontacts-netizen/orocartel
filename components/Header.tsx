@@ -13,7 +13,7 @@ const icon = { width: 26, height: 26, viewBox: '0 0 24 24', fill: 'none', stroke
 // `overHero`: start transparent over the hero photo, turn solid white once scrolled.
 // `tone`: marks colour while transparent: 'light' (white) for dark photos, 'dark' for light photos.
 export default function Header({ overHero = false, tone = 'light' }: { overHero?: boolean; tone?: 'light' | 'dark' }) {
-  const [panel, setPanel] = useState<'menu' | 'search' | null>(null)
+  const [panel, setPanel] = useState<'menu' | 'search' | 'account' | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [query, setQuery] = useState('')
   const searchRef = useRef<HTMLInputElement>(null)
@@ -46,7 +46,7 @@ export default function Header({ overHero = false, tone = 'light' }: { overHero?
   }, [query, products])
 
   const clear = overHero && !scrolled && !panel
-  const toggle = (p: 'menu' | 'search') => setPanel(panel === p ? null : p)
+  const toggle = (p: 'menu' | 'search' | 'account') => setPanel(panel === p ? null : p)
   const close = () => setPanel(null)
 
   return (
@@ -74,9 +74,9 @@ export default function Header({ overHero = false, tone = 'light' }: { overHero?
         </Link>
 
         <div className={`${styles.side} ${styles.right}`}>
-          <a href="/#list" className={styles.iconBtn} aria-label="Join the list" onClick={close}>
-            <svg {...icon}><rect x="3" y="5.5" width="18" height="13" rx="1" /><path d="M3.5 6.5l8.5 6.5 8.5-6.5" /></svg>
-          </a>
+          <button className={styles.iconBtn} aria-label="Account" aria-expanded={panel === 'account'} onClick={() => toggle('account')}>
+            <svg {...icon}><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-7.5 8-7.5s8 3.1 8 7.5" /></svg>
+          </button>
           <button
             className={styles.iconBtn}
             aria-label={cart.count ? `Bag, ${cart.count} item${cart.count === 1 ? '' : 's'}` : 'Bag'}
@@ -97,6 +97,8 @@ export default function Header({ overHero = false, tone = 'light' }: { overHero?
             <a href="/#shop">Shop</a>
             <a href="/#list">Join the list</a>
             <Link href="/about">About</Link>
+            <Link href="/account">Account</Link>
+            <Link href="/track">Track order</Link>
             {site.instagram && <a href={site.instagram} target="_blank" rel="noreferrer">Instagram</a>}
             {site.tiktok && <a href={site.tiktok} target="_blank" rel="noreferrer">TikTok</a>}
             {site.youtube && <a href={site.youtube} target="_blank" rel="noreferrer">YouTube</a>}
@@ -128,6 +130,34 @@ export default function Header({ overHero = false, tone = 'light' }: { overHero?
                 </span>
               </Link>
             ))}
+          </div>
+        </div>
+      )}
+      {panel === 'account' && (
+        <div className={styles.sheetScrim} onClick={close}>
+          <div className={styles.sheet} role="dialog" aria-modal="true" aria-label="Account" onClick={(e) => e.stopPropagation()}>
+            <div className={styles.sheetHead}>
+              <p className={styles.sheetTitle}>Account</p>
+              <button className={styles.iconBtn} aria-label="Close" onClick={close}>
+                <svg {...icon} strokeWidth={1.3} width={34} height={34}><path d="M5 5l14 14M19 5L5 19" /></svg>
+              </button>
+            </div>
+            <Link href="/account" className={styles.sheetPrimary} onClick={close}>
+              Sign in
+            </Link>
+            <div className={styles.sheetPair}>
+              <Link href="/track" className={styles.sheetGhost} onClick={close}>
+                <svg {...icon} width={20} height={20}><rect x="4" y="6" width="16" height="14" rx="1.5" /><path d="M8 6V4h8v2M8 13h8" /></svg>
+                Track order
+              </Link>
+              <Link href="/account" className={styles.sheetGhost} onClick={close}>
+                <svg {...icon} width={20} height={20}><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-7.5 8-7.5s8 3.1 8 7.5" /></svg>
+                Orders
+              </Link>
+            </div>
+            <a href={`mailto:${site.contactEmail}`} className={styles.sheetContact} onClick={close}>
+              Need help? {site.contactEmail}
+            </a>
           </div>
         </div>
       )}
