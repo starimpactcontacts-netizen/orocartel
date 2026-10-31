@@ -4,14 +4,14 @@ export const site = {
   name: 'OROCARTEL',
   domain: 'orocartel.com',
   url: 'https://www.orocartel.com',
-  description: 'Orocartel is the men’s grooming store.',
+  description: 'Orocartel is the men’s makeup store.',
   // Homepage copy (placeholder — swap freely)
   heroBadge: 'New',
   heroTitle: 'Cabrón Kohl',
   heroText: 'Creamy black kohl, made for men.',
   heroLink: 'Shop now',
   heroHref: '/products/cabron-kohl-eye-pencil',
-  introText: 'Orocartel is the first stop for men’s grooming.',
+  introText: 'Orocartel is the first stop for men’s makeup.',
   introLink: 'Shop all',
   // Hero photo: list every pre-sized copy in /public/hero, smallest to largest
   // (largest = the original file). width/height are the original's pixels.
@@ -29,8 +29,8 @@ export const site = {
   },
   // Full-width tile under the hero.
   feature: {
-    title: ['The', 'Kohl'],
-    href: '/products/cabron-kohl-eye-pencil',
+    title: ['Makeup', 'for men'],
+    href: '/#shop',
     width: 1024,
     height: 1024,
     alt: 'Cabrón Kohl Eye Pencil and box on black leather',
