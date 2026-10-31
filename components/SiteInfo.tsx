@@ -39,7 +39,7 @@ export default function SiteInfo() {
         <details className={styles.item}>
           <summary>About Orocartel <Chevron /></summary>
           <div className={styles.body}>
-            <p>Orocartel is a men’s makeup store from Sweden.</p>
+            <p>Orocartel is a men’s grooming store from Sweden.</p>
             <p>Oro is Spanish for gold. A cartel is a crew.</p>
             <Link href="/about">About Orocartel</Link>
           </div>

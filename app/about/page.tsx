@@ -6,10 +6,10 @@ import styles from './page.module.css'
 
 export const metadata: Metadata = {
   title: { absolute: 'About Orocartel' },
-  description: 'Orocartel is a men’s makeup store from Sweden.',
+  description: 'Orocartel is a men’s grooming store from Sweden.',
   openGraph: {
     title: 'About Orocartel',
-    description: 'Orocartel is a men’s makeup store from Sweden.',
+    description: 'Orocartel is a men’s grooming store from Sweden.',
   },
 }
 
@@ -19,7 +19,7 @@ export default function About() {
       <Header />
       <main className={styles.main}>
         <h1 className={styles.h1}>About Orocartel</h1>
-        <p className={styles.lead}>Orocartel is a men’s makeup store from Sweden.</p>
+        <p className={styles.lead}>Orocartel is a men’s grooming store from Sweden.</p>
 
         <section className={styles.block}>
           <h2 className={styles.h2}>The name.</h2>
