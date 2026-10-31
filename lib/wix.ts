@@ -6,7 +6,10 @@ const API = 'https://www.wixapis.com'
 export const WIX_SITE_ID = process.env.WIX_SITE_ID || '771fb956-c08e-466b-bbaf-3886a70297b2'
 export const WIX_STORES_APP_ID = '215238eb-22a5-4c36-9e7b-e7c08025e04e'
 
-export const wixConfigured = () => Boolean(process.env.WIX_API_KEY)
+// Tolerate pasting slips in the dashboard: surrounding quotes, whitespace or a "Bearer " prefix.
+const apiKey = () =>
+  (process.env.WIX_API_KEY ?? '').trim().replace(/^["']|["']$/g, '').replace(/^Bearer\s+/i, '').trim()
+export const wixConfigured = () => Boolean(apiKey())
 
 export async function wixFetch<T>(
   path: string,
@@ -15,7 +18,7 @@ export async function wixFetch<T>(
   const res = await fetch(`${API}${path}`, {
     method: init.method ?? 'POST',
     headers: {
-      Authorization: init.auth ?? process.env.WIX_API_KEY ?? '',
+      Authorization: init.auth ?? apiKey(),
       'wix-site-id': WIX_SITE_ID,
       'Content-Type': 'application/json',
     },
