@@ -19,7 +19,7 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
       </Link>
       <div className={styles.body}>
-        <Link href={href} className={styles.name}>
+        <Link href={href} className={`${styles.name} headline`}>
           {product.name}
         </Link>
         {product.tagline && <p className={styles.tagline}>{product.tagline}</p>}

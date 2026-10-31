@@ -8,6 +8,7 @@
   --header-h: 64px;
   --font-display: var(--font-sans);
   --font-body: var(--font-sans);
+  --font-head: 'Helvetica Neue', Helvetica, var(--font-head-fallback), Arial, sans-serif;
   color-scheme: light;
 }
 
@@ -53,4 +54,14 @@ button {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+}
+
+/* Headlines: heavy neo-grotesk caps, like the beauty houses. Wins over module styles. */
+h1,
+h2,
+.headline {
+  font-family: var(--font-head) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  text-transform: uppercase;
 }

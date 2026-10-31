@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Montserrat } from 'next/font/google'
+import { Inter_Tight, Montserrat } from 'next/font/google'
 import { site } from '@/lib/site'
 import { CartProvider } from '@/components/cart/CartProvider'
 import CartDrawer from '@/components/cart/CartDrawer'
@@ -7,6 +7,8 @@ import './globals.css'
 
 // Montserrat: the closest open geometric sans to the Gotham-style face luxury beauty houses use.
 const sans = Montserrat({ weight: ['400', '500', '600'], subsets: ['latin'], variable: '--font-sans' })
+// Headlines: Helvetica Neue where the device has it (Apple), Inter Tight elsewhere.
+const head = Inter_Tight({ weight: ['600', '700'], subsets: ['latin'], variable: '--font-head-fallback' })
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -32,7 +34,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={sans.variable}>
+    <html lang="en" className={`${sans.variable} ${head.variable}`}>
       <body>
         <CartProvider>
           {children}
