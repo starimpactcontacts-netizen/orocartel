@@ -34,7 +34,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 62% 30%;
+  object-position: 25% 30%; /* keep the face in frame on tall phones */
 }
 
 .heroPhoto .heroShade {

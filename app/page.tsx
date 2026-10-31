@@ -21,7 +21,7 @@ export default async function Home() {
         {site.heroImage && (
           <img
             src={site.heroImage}
-            srcSet={`${site.heroImage} 1179w, ${site.heroImage.replace('.jpg', '@2x.jpg')} 2358w`}
+            srcSet={site.heroImage2x ? `${site.heroImage} 1179w, ${site.heroImage2x} 2358w` : undefined}
             sizes="100vw"
             alt=""
             className={styles.heroImg}
@@ -35,7 +35,7 @@ export default async function Home() {
         </div>
         <div className={styles.heroCaption}>
           <h1 className={styles.heroTitle}>{site.heroTitle}</h1>
-          <Link href="/#shop" className={styles.heroLink}>
+          <Link href={site.heroHref} className={styles.heroLink}>
             {site.heroLink}
           </Link>
         </div>
