@@ -27,8 +27,8 @@ export const site = {
   },
   // Full-width tile under the hero.
   feature: {
-    title: ['Makeup', 'for men'],
-    href: '/#shop',
+    title: ['The', 'Kohl'],
+    href: '/products/cabron-kohl-eye-pencil',
     width: 1024,
     height: 1024,
     alt: 'Cabrón Kohl Eye Pencil and box on black leather',
