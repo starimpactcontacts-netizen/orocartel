@@ -53,6 +53,10 @@ export async function getProducts(): Promise<Product[]> {
       }),
       wixFetch<{ inventoryItems?: WixInventoryItem[] }>('/stores/v3/inventory-items/query', {
         body: { query: { cursorPaging: { limit: 1000 } } },
+      }).catch((e) => {
+        // Stock detail is optional: fall back to each product's own availability.
+        console.error('inventory query failed', e)
+        return { inventoryItems: [] as WixInventoryItem[] }
       }),
     ])
     const inv = new Map<string, WixInventoryItem[]>()
