@@ -43,6 +43,7 @@
 }
 
 .iconBtn {
+  position: relative;
   display: inline-flex;
   width: 44px;
   height: 44px;
@@ -138,4 +139,24 @@
 
 .search::-webkit-search-cancel-button {
   -webkit-appearance: none;
+}
+
+.badge {
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: currentColor;
+  color: var(--bg);
+  font-size: 10px;
+  line-height: 16px;
+  text-align: center;
+}
+
+/* over the photo the icons are white, so flip the badge to white with dark text */
+.clear .badge {
+  color: #121212;
 }

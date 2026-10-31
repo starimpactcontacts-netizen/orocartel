@@ -1,50 +1,91 @@
-export type Hotspot = {
-  x: number // % from left of the image
-  y: number // % from top of the image
-  title: string
-  text: string
-}
+import 'server-only'
+import { wixConfigured, wixFetch } from './wix'
 
 export type Product = {
+  id: string // Wix product id
+  variantId: string // default variant, used for cart/checkout
   slug: string
   name: string
-  label: string // small line above the gallery, e.g. the drop
-  price: number // in kr
+  price: number
+  formattedPrice: string
+  currency: string
   image: string
   images: string[]
-  color: string
+  descriptionHtml: string
   inStock: boolean
-  sizes: string[]
-  description: string
-  fit: string[]
-  materials: string[]
-  hotspots: Hotspot[]
 }
 
-// Placeholder copy is marked "TBD" — swap in real fabric, care and fit details.
-export const products: Product[] = [
-  {
-    slug: 'henley-slim-fit-long-sleeve',
-    name: 'The Henley (Slim Fit)',
-    label: '001: The Henley',
-    price: 349,
-    image: '/products/henley-black.jpg',
-    images: ['/products/henley-black.jpg'],
-    color: 'Black',
-    inStock: false,
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    description:
-      'Black, buttoned low, made to move from daylight into the night. A slim-fit long-sleeve henley with a three-button placket.',
-    fit: ['Slim fit', 'Henley collar with three-button placket', 'Long sleeves', 'Model measurements: TBD'],
-    materials: ['Composition: TBD', 'Care instructions: TBD'],
-    hotspots: [
-      { x: 51, y: 27, title: 'Three-button placket', text: 'Buttoned low at the collar.' },
-      { x: 40, y: 56, title: 'Slim body', text: 'Cut close through the chest and waist.' },
-      { x: 20, y: 76, title: 'Long sleeves', text: 'Full-length sleeves with a clean cuff.' },
-    ],
-  },
-]
+type WixMedia = { image?: { url?: string } }
+type WixProduct = {
+  id: string
+  name: string
+  slug: string
+  visible?: boolean
+  plainDescription?: string
+  currency?: string
+  media?: { main?: WixMedia; itemsInfo?: { items?: WixMedia[] } }
+  actualPriceRange?: { minValue?: { amount?: string; formattedAmount?: string } }
+  inventory?: { availabilityStatus?: string }
+}
+type WixInventoryItem = { productId: string; variantId: string; inStock?: boolean; availabilityStatus?: string }
 
-export const formatPrice = (kr: number) => `${kr.toLocaleString('sv-SE')} kr`
+// Allow only simple formatting tags from the Wix description.
+function cleanHtml(html: string) {
+  return html
+    .replace(/<(script|style|iframe|object|embed)[\s\S]*?<\/\1>/gi, '')
+    .replace(/\son\w+="[^"]*"/gi, '')
+    .replace(/<(?!\/?(h2|h3|p|ul|ol|li|strong|em|b|i|br)\b)[^>]*>/gi, '')
+}
 
-export const getProduct = (slug: string) => products.find((p) => p.slug === slug)
+const sizeImage = (url: string, w = 1200) =>
+  url.includes('static.wixstatic.com/media/') ? `${url}/v1/fit/w_${w},h_${w},q_90/file.webp` : url
+
+export async function getProducts(): Promise<Product[]> {
+  if (!wixConfigured()) return []
+  try {
+    const [{ products }, { inventoryItems }] = await Promise.all([
+      wixFetch<{ products?: WixProduct[] }>('/stores/v3/products/query', {
+        body: {
+          query: { cursorPaging: { limit: 100 } },
+          fields: ['CURRENCY', 'PLAIN_DESCRIPTION', 'MEDIA_ITEMS_INFO'],
+        },
+      }),
+      wixFetch<{ inventoryItems?: WixInventoryItem[] }>('/stores/v3/inventory-items/query', {
+        body: { query: { cursorPaging: { limit: 1000 } } },
+      }),
+    ])
+    const inv = new Map<string, WixInventoryItem[]>()
+    for (const i of inventoryItems ?? []) inv.set(i.productId, [...(inv.get(i.productId) ?? []), i])
+
+    return (products ?? [])
+      .filter((p) => p.visible !== false)
+      .map((p) => {
+        const items = inv.get(p.id) ?? []
+        const stocked = items.find((i) => i.inStock) ?? items[0]
+        const images = [p.media?.main, ...(p.media?.itemsInfo?.items ?? [])]
+          .map((m) => m?.image?.url)
+          .filter((u, i, a): u is string => !!u && a.indexOf(u) === i)
+        const min = p.actualPriceRange?.minValue
+        return {
+          id: p.id,
+          variantId: stocked?.variantId ?? '',
+          slug: p.slug,
+          name: p.name,
+          price: Number(min?.amount ?? 0),
+          formattedPrice: (min?.formattedAmount ?? '').replace(/(\d)kr$/, '$1 kr'),
+          currency: p.currency ?? 'SEK',
+          image: images[0] ? sizeImage(images[0]) : '',
+          images: images.map((u) => sizeImage(u)),
+          descriptionHtml: cleanHtml(p.plainDescription ?? ''),
+          inStock: items.length ? items.some((i) => i.inStock) : p.inventory?.availabilityStatus !== 'OUT_OF_STOCK',
+        }
+      })
+  } catch (e) {
+    console.error('getProducts failed', e)
+    return []
+  }
+}
+
+export async function getProduct(slug: string) {
+  return (await getProducts()).find((p) => p.slug === slug)
+}

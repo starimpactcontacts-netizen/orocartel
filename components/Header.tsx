@@ -3,8 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { site } from '@/lib/site'
-import { formatPrice, products } from '@/lib/products'
+import { useCart } from '@/components/cart/CartProvider'
 import styles from './Header.module.css'
+
+type SearchItem = { slug: string; name: string; image: string; formattedPrice: string; inStock: boolean }
 
 const icon = { width: 26, height: 26, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6 }
 
@@ -14,6 +16,8 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [query, setQuery] = useState('')
   const searchRef = useRef<HTMLInputElement>(null)
+  const cart = useCart()
+  const [products, setProducts] = useState<SearchItem[] | null>(null)
 
   useEffect(() => {
     if (!overHero) return
@@ -25,7 +29,10 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
 
   useEffect(() => {
     document.body.style.overflow = panel ? 'hidden' : ''
-    if (panel === 'search') searchRef.current?.focus()
+    if (panel === 'search') {
+      searchRef.current?.focus()
+      if (!products) fetch('/api/products').then((r) => r.json()).then(setProducts).catch(() => setProducts([]))
+    }
     return () => {
       document.body.style.overflow = ''
     }
@@ -33,8 +40,9 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return q ? products.filter((p) => p.name.toLowerCase().includes(q)) : products
-  }, [query])
+    const list = products ?? []
+    return q ? list.filter((p) => p.name.toLowerCase().includes(q)) : list
+  }, [query, products])
 
   const clear = overHero && !scrolled && !panel
   const toggle = (p: 'menu' | 'search') => setPanel(panel === p ? null : p)
@@ -68,9 +76,17 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
           <a href="/#list" className={styles.iconBtn} aria-label="Join the list" onClick={close}>
             <svg {...icon}><rect x="3" y="5.5" width="18" height="13" rx="1" /><path d="M3.5 6.5l8.5 6.5 8.5-6.5" /></svg>
           </a>
-          <a href="/#shop" className={styles.iconBtn} aria-label="Shop" onClick={close}>
+          <button
+            className={styles.iconBtn}
+            aria-label={cart.count ? `Bag, ${cart.count} item${cart.count === 1 ? '' : 's'}` : 'Bag'}
+            onClick={() => {
+              close()
+              cart.setOpen(true)
+            }}
+          >
             <svg {...icon}><path d="M5 8h14l-1.2 12H6.2L5 8z" /><path d="M9 8V6.5a3 3 0 0 1 6 0V8" /></svg>
-          </a>
+            {cart.count > 0 && <span className={styles.badge}>{cart.count}</span>}
+          </button>
         </div>
       </header>
 
@@ -101,13 +117,13 @@ export default function Header({ overHero = false }: { overHero?: boolean }) {
             onChange={(e) => setQuery(e.target.value)}
           />
           <div className={styles.results}>
-            {results.length === 0 && <p className={styles.empty}>No results for “{query}”</p>}
+            {products && results.length === 0 && <p className={styles.empty}>{query ? `No results for “${query}”` : 'No products yet.'}</p>}
             {results.map((p) => (
               <Link key={p.slug} href={`/products/${p.slug}`} className={styles.result} onClick={close}>
                 <img src={p.image} alt="" width={960} height={1200} />
                 <span>
                   {p.name}
-                  <small>{p.inStock ? formatPrice(p.price) : `${formatPrice(p.price)} · Sold out`}</small>
+                  <small>{p.inStock ? p.formattedPrice : `${p.formattedPrice} · Sold out`}</small>
                 </span>
               </Link>
             ))}

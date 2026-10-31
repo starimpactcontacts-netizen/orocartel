@@ -4,8 +4,12 @@ export const site = {
   name: 'OROCARTEL',
   domain: 'orocartel.com',
   url: 'https://www.orocartel.com',
-  tagline: 'Limited runs. No restocks.',
-  description: 'Orocartel is a menswear label from Sweden. 001: The Henley.',
+  description: 'Orocartel is the men’s makeup store.',
+  // Homepage copy (placeholder — swap freely)
+  heroTitle: 'Makeup for men.',
+  heroLink: 'Shop now',
+  introText: 'Orocartel is the first stop for men’s makeup. Considered formulas, nothing loud.',
+  introLink: 'Shop all',
   // Drop a photo in /public (e.g. /hero.jpg) and set its path here to fill the hero.
   heroImage: '/hero.jpg',
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',

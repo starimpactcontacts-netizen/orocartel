@@ -5,7 +5,7 @@
 
 .media {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: var(--surface);
 }
@@ -34,7 +34,7 @@
 }
 
 .name {
-  padding: clamp(14px, 3vw, 20px) 12px clamp(28px, 6vw, 44px);
+  padding: clamp(14px, 3vw, 20px) 12px 4px;
   text-align: center;
   font-size: clamp(15px, 3.8vw, 17px);
   line-height: 1.35;
@@ -43,4 +43,11 @@
 .card:hover .name {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.price {
+  padding: 0 12px clamp(28px, 6vw, 44px);
+  text-align: center;
+  font-size: clamp(14px, 3.6vw, 15px);
+  color: var(--muted);
 }

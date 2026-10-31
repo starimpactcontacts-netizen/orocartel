@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Charis_SIL } from 'next/font/google'
 import { site } from '@/lib/site'
+import { CartProvider } from '@/components/cart/CartProvider'
+import CartDrawer from '@/components/cart/CartDrawer'
 import './globals.css'
 
 // Charis SIL is the open-source cut of Charter, the brand's text face.
@@ -31,7 +33,12 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={serif.variable}>
-      <body>{children}</body>
+      <body>
+        <CartProvider>
+          {children}
+          <CartDrawer />
+        </CartProvider>
+      </body>
     </html>
   )
 }

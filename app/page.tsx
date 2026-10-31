@@ -3,11 +3,14 @@ import Header from '@/components/Header'
 import SiteInfo from '@/components/SiteInfo'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
-import { products } from '@/lib/products'
+import { getProducts } from '@/lib/products'
 import { site } from '@/lib/site'
 import styles from './page.module.css'
 
-export default function Home() {
+export const revalidate = 60
+
+export default async function Home() {
+  const products = await getProducts()
   return (
     <main>
       <Header overHero={!!site.heroImage} />
@@ -31,25 +34,23 @@ export default function Home() {
           <img src="/ram-dark.png" alt="" className={styles.ramBlack} width={1085} height={710} />
         </div>
         <div className={styles.heroCaption}>
-          <h1 className={styles.heroTitle}>001: The Henley</h1>
-          <Link href="/products/henley-slim-fit-long-sleeve" className={styles.heroLink}>
-            Discover The Henley
+          <h1 className={styles.heroTitle}>{site.heroTitle}</h1>
+          <Link href="/#shop" className={styles.heroLink}>
+            {site.heroLink}
           </Link>
         </div>
       </section>
 
       <section className={styles.intro}>
-        <p className={styles.introText}>
-          001: The Henley. Black, buttoned low, made to move from daylight into the night.
-        </p>
-        <Link href="/products/henley-slim-fit-long-sleeve" className={styles.introLink}>
-          Shop The Henley
+        <p className={styles.introText}>{site.introText}</p>
+        <Link href="/#shop" className={styles.introLink}>
+          {site.introLink}
         </Link>
       </section>
 
       <section id="shop" className={styles.shop}>
         <p className={styles.count}>
-          {products.length} {products.length === 1 ? 'Article' : 'Articles'}
+          {products.length} {products.length === 1 ? 'Product' : 'Products'}
         </p>
         <div className={styles.grid}>
           {products.map((p) => (
