@@ -1,6 +1,6 @@
 import 'server-only'
 import { wixConfigured, wixFetch } from './wix'
-import { catalog } from './catalog'
+import { catalog, type Shade } from './catalog'
 
 export type Product = {
   id: string // Wix product id
@@ -17,6 +17,9 @@ export type Product = {
   tagline?: string
   badge?: string
   summary?: string
+  slides: { src: string; fill?: boolean; ram?: string }[] // product page gallery
+  shade?: Shade
+  shades: { name: string; hex: string; slug: string }[] // every shade in the family, incl. this one
   sections: { title: string; html: string }[] // PRODUCT DETAILS, HOW TO USE, INGREDIENTS AND SAFETY
 }
 
@@ -102,7 +105,14 @@ export async function getProducts(): Promise<Product[]> {
           .filter((u, i, a): u is string => !!u && a.indexOf(u) === i)
         const min = p.actualPriceRange?.minValue
         const o = catalog[p.slug] ?? {}
-        const gallery = [...(o.images ?? []), ...(o.hideConnectorImages ? [] : images.map((u) => sizeImage(u)))]
+        const fromWix = images.map((u) => sizeImage(u))
+        const slides = o.gallery
+          ? o.gallery
+              .map((g) => ('connector' in g ? { ...g, src: fromWix[g.connector] } : g))
+              .filter((g): g is { src: string; fill?: boolean; ram?: 'white-left' | 'black-left' } => !!g.src)
+              .map(({ src, fill, ram }) => ({ src, fill, ram }))
+          : [...(o.images ?? []), ...(o.hideConnectorImages ? [] : fromWix)].map((src) => ({ src }))
+        const gallery = slides.map((s) => s.src)
         return {
           id: p.id,
           variantId: stocked?.variantId ?? '',
@@ -116,6 +126,9 @@ export async function getProducts(): Promise<Product[]> {
           currency: p.currency ?? 'SEK',
           image: gallery[0] ?? '',
           images: gallery,
+          slides,
+          shade: o.shade,
+          shades: [] as Product['shades'],
           descriptionHtml: cleanHtml(p.plainDescription ?? ''),
           tagline: o.tagline,
           badge: o.badge,
@@ -126,6 +139,14 @@ export async function getProducts(): Promise<Product[]> {
           inStock: items.length ? items.some((i) => i.inStock) : p.inventory?.availabilityStatus !== 'OUT_OF_STOCK',
         }
       })
+      .map((p, _i, all) => ({
+        ...p,
+        shades: p.shade
+          ? all
+              .filter((x) => x.shade?.family === p.shade!.family)
+              .map((x) => ({ name: x.shade!.name, hex: x.shade!.hex, slug: x.slug }))
+          : [],
+      }))
   } catch (e) {
     console.error('getProducts failed', e)
     return []

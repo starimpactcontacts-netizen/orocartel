@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import ProductGallery from '@/components/pdp/ProductGallery'
 import ProductDetails from '@/components/pdp/ProductDetails'
 import BuyBar from '@/components/pdp/BuyBar'
+import ShadePicker from '@/components/pdp/ShadePicker'
 import { getProduct, getProducts } from '@/lib/products'
 import styles from './page.module.css'
 
@@ -44,7 +45,7 @@ export default async function ProductPage({ params }: Props) {
         </Link>
 
         <div className={styles.top}>
-          <ProductGallery images={product.images} name={product.name} />
+          <ProductGallery slides={product.slides} name={product.name} />
 
           <div className={styles.summary}>
             <div className={styles.titleRow}>
@@ -52,6 +53,7 @@ export default async function ProductPage({ params }: Props) {
               <p className={styles.price}>{product.formattedPrice}</p>
             </div>
             <p className={styles.stock}>{product.inStock ? 'In stock' : 'Sold out'}</p>
+            <ShadePicker product={product} />
 
             <ProductDetails product={product} />
           </div>

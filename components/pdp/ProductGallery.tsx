@@ -3,7 +3,10 @@
 import { useRef, useState } from 'react'
 import styles from './ProductGallery.module.css'
 
-export default function ProductGallery({ images, name }: { images: string[]; name: string }) {
+type Slide = { src: string; fill?: boolean; ram?: string }
+
+export default function ProductGallery({ slides, name }: { slides: Slide[]; name: string }) {
+  const images = slides
   const track = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState(0)
 
@@ -20,9 +23,19 @@ export default function ProductGallery({ images, name }: { images: string[]; nam
   return (
     <div className={styles.gallery}>
       <div ref={track} className={styles.track} onScroll={onScroll}>
-        {images.map((src, i) => (
-          <div key={src + i} className={styles.slide}>
-            <img src={src} alt={i === 0 ? name : `${name}, view ${i + 1}`} width={960} height={1200} />
+        {slides.map((s, i) => (
+          <div key={s.src + i} className={`${styles.slide} ${s.fill ? styles.fill : ''}`}>
+            <img src={s.src} alt={i === 0 ? name : `${name}, view ${i + 1}`} width={1200} height={1200} />
+            {s.ram && (
+              <img
+                src={s.ram.startsWith('white') ? '/ram.png' : '/ram-dark.png'}
+                alt=""
+                aria-hidden
+                className={styles.ram}
+                width={1085}
+                height={710}
+              />
+            )}
           </div>
         ))}
       </div>
