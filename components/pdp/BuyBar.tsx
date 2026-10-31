@@ -6,10 +6,12 @@ import { useCart } from '@/components/cart/CartProvider'
 import type { Product } from '@/lib/products'
 import styles from './BuyBar.module.css'
 
-// Sticky bottom bar: price on the left, add to bag (or restock alert) on the right.
+// Sticky bottom bar: add to bag + quick buy (straight to Stripe for this one item), or a restock alert.
 export default function BuyBar({ product }: { product: Product }) {
   const { add } = useCart()
   const [notify, setNotify] = useState(false)
+  const [buying, setBuying] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     document.body.style.overflow = notify ? 'hidden' : ''
@@ -30,12 +32,46 @@ export default function BuyBar({ product }: { product: Product }) {
     })
   }
 
+  async function quickBuy() {
+    setError('')
+    setBuying(true)
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: [{ productId: product.id, variantId: product.variantId, quantity: 1 }] }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok || !data.url) throw new Error(data.error || 'Checkout is unavailable right now.')
+      window.location.href = data.url
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Checkout is unavailable right now.')
+      setBuying(false)
+    }
+  }
+
   return (
     <>
       <div className={styles.bar}>
-        <button className={styles.main} onClick={product.inStock ? addToBag : () => setNotify(true)}>
-          {product.inStock ? 'Add to bag' : 'Sold out: notify me'}
-        </button>
+        {error && (
+          <p className={styles.error} role="alert">
+            {error}
+          </p>
+        )}
+        {product.inStock ? (
+          <div className={styles.pair}>
+            <button className={styles.ghost} onClick={addToBag}>
+              Add to bag
+            </button>
+            <button className={styles.main} onClick={quickBuy} disabled={buying}>
+              {buying ? 'Opening…' : 'Quick buy'}
+            </button>
+          </div>
+        ) : (
+          <button className={styles.main} onClick={() => setNotify(true)}>
+            Sold out: notify me
+          </button>
+        )}
       </div>
 
       {notify && (
