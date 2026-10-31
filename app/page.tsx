@@ -13,25 +13,26 @@ export default async function Home() {
   const products = await getProducts()
   return (
     <main>
-      <Header overHero={!!site.heroImage} />
+      <Header />
 
-      <section
-        className={site.heroImage ? `${styles.hero} ${styles.heroPhoto}` : styles.hero}
-      >
-        {site.heroImage && (
+      {/* Shown uncropped at its own proportions and never wider than the file,
+          so it is never upscaled; the browser picks the size that fits the screen. */}
+      <section className={styles.hero}>
+        <div className={styles.heroMedia} style={{ aspectRatio: `${site.hero.width} / ${site.hero.height}` }}>
           <img
-            src={site.heroImage}
-            srcSet={site.heroImage2x ? `${site.heroImage} 1179w, ${site.heroImage2x} 2358w` : undefined}
-            sizes="100vw"
-            alt=""
+            src={site.hero.sources[site.hero.sources.length - 1].src}
+            srcSet={site.hero.sources.map((s) => `${s.src} ${s.width}w`).join(', ')}
+            sizes={`(min-width: 900px) min(58vw, ${site.hero.width}px), 100vw`}
+            width={site.hero.width}
+            height={site.hero.height}
+            alt={site.hero.alt}
             className={styles.heroImg}
             fetchPriority="high"
           />
-        )}
-        <div className={styles.heroShade} aria-hidden />
-        <div className={styles.heroRam} aria-hidden>
-          <img src="/ram.png" alt="" className={styles.ramWhite} width={1085} height={710} />
-          <img src="/ram-dark.png" alt="" className={styles.ramBlack} width={1085} height={710} />
+          <div className={styles.heroRam} aria-hidden>
+            <img src="/ram.png" alt="" className={styles.ramWhite} width={1085} height={710} />
+            <img src="/ram-dark.png" alt="" className={styles.ramBlack} width={1085} height={710} />
+          </div>
         </div>
         <div className={styles.heroCaption}>
           <h1 className={styles.heroTitle}>{site.heroTitle}</h1>

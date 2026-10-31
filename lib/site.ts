@@ -11,9 +11,18 @@ export const site = {
   heroHref: '/products/cabron-kohl-eye-pencil',
   introText: 'Orocartel is the first stop for men’s makeup. Considered formulas, nothing loud.',
   introLink: 'Shop all',
-  // Drop a photo in /public (e.g. /hero.jpg) and set its path here to fill the hero.
-  heroImage: '/hero-kohl.jpg',
-  heroImage2x: '', // optional sharper version for big screens
+  // Hero photo: list every pre-sized copy in /public/hero, smallest to largest
+  // (largest = the original file). width/height are the original's pixels.
+  hero: {
+    width: 1078,
+    height: 976,
+    alt: 'Man wearing the Cabrón Kohl',
+    sources: [
+      { src: '/hero/kohl-640.jpg', width: 640 },
+      { src: '/hero/kohl-828.jpg', width: 828 },
+      { src: '/hero/kohl-1078.jpg', width: 1078 },
+    ],
+  },
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',
   instagram: 'https://www.instagram.com/orocartel',
   tiktok: 'https://www.tiktok.com/@orocartel',

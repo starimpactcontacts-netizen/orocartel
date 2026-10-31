@@ -1,53 +1,26 @@
 .hero {
-  position: relative;
-  min-height: min(92vh, 860px);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background:
-    radial-gradient(ellipse at 50% 35%, #ffffff 0%, transparent 65%),
-    linear-gradient(180deg, #f6f6f4 0%, #ecebe8 100%);
-  background-size: cover;
-  background-position: center;
+  flex-direction: column;
 }
 
-.heroShade {
-  position: absolute;
-  inset: 0;
-  background: none;
+.heroMedia {
+  position: relative;
+  width: 100%;
+  background: #e9e9e9;
 }
 
-/* Dark photo: flip the hero's local palette to light-on-dark */
-.heroPhoto {
-  min-height: 88svh;
-  --text: #ffffff;
-  --bg: #121212;
-  --line-strong: rgba(255, 255, 255, 0.55);
-  align-items: flex-end;
-  color: var(--text);
-  background: #0e0b09;
-}
-
+/* Never stretched past the file's own pixels: see sizes/srcSet in page.tsx */
 .heroImg {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 25% 30%; /* keep the face in frame on tall phones */
-}
-
-.heroPhoto .heroShade {
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 35%);
 }
 
 .heroRam {
   position: absolute;
-  top: calc(var(--header-h) + clamp(12px, 3vw, 40px));
+  top: clamp(14px, 3vw, 32px);
   left: clamp(16px, 4vw, 48px);
-  width: clamp(110px, 30vw, 260px);
+  width: clamp(76px, 20vw, 190px);
   aspect-ratio: 1085 / 710;
   pointer-events: none;
 }
@@ -104,30 +77,43 @@
 
 
 .heroCaption {
-  position: absolute;
-  left: clamp(16px, 4vw, 48px);
-  right: clamp(16px, 4vw, 48px);
-  bottom: clamp(36px, 7vh, 72px);
-  color: #fff;
+  padding: clamp(28px, 7vw, 48px) clamp(20px, 5vw, 40px) 0;
 }
 
 .heroTitle {
-  font-weight: 400;
-  font-size: clamp(26px, 6.4vw, 44px);
-  line-height: 1.15;
+  font-size: clamp(30px, 8vw, 56px);
+  line-height: 1.05;
 }
 
 .heroLink {
   display: inline-block;
-  margin-top: clamp(14px, 2.4vw, 22px);
-  padding-bottom: 6px;
-  border-bottom: 1.5px solid #fff;
-  font-size: clamp(17px, 4.2vw, 22px);
-  letter-spacing: 0.01em;
+  margin-top: clamp(16px, 4vw, 24px);
+  padding-bottom: 5px;
+  border-bottom: 1.5px solid var(--text);
+  font-size: clamp(15px, 3.9vw, 17px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .heroLink:hover {
-  opacity: 0.8;
+  opacity: 0.7;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(40px, 5vw, 96px);
+  }
+
+  .heroMedia {
+    flex: 0 0 auto;
+    width: min(58vw, 1078px);
+  }
+
+  .heroCaption {
+    padding: 0 clamp(24px, 4vw, 64px) 0 0;
+  }
 }
 
 .intro {

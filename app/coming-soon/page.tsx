@@ -20,8 +20,8 @@ export default function ComingSoon() {
       </div>
 
       <img
-        src={site.heroImage}
-        srcSet={`${site.heroImage} 1179w, ${site.heroImage.replace('.jpg', '@2x.jpg')} 2358w`}
+        src="/hero.jpg"
+        srcSet="/hero.jpg 1179w, /hero@2x.jpg 2358w"
         sizes="100vw"
         alt=""
         className={styles.bg}
