@@ -27,6 +27,7 @@ export default async function Home() {
           className={styles.heroImg}
           fetchPriority="high"
         />
+        <img src="/ram-dark.png" alt="" aria-hidden className={styles.heroRamCorner} width={1085} height={710} />
         <div className={styles.heroCaption}>
           {site.heroBadge && <p className={styles.heroBadge}>{site.heroBadge}</p>}
           <h1 className={styles.heroTitle}>{site.heroTitle}</h1>
@@ -35,13 +36,6 @@ export default async function Home() {
             {site.heroLink}
           </Link>
         </div>
-      </section>
-
-      <section className={styles.intro}>
-        <p className={styles.introText}>{site.introText}</p>
-        <Link href="/#shop" className={styles.introLink}>
-          {site.introLink}
-        </Link>
       </section>
 
       <ProductRail title="Most wanted" products={products} />
