@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { site } from '@/lib/site'
-import SignUp from './SignUp'
 import styles from './SiteInfo.module.css'
 
 function Chevron() {
@@ -11,7 +10,7 @@ function Chevron() {
   )
 }
 
-// Burberry-style closing block: sign up, then collapsible info sections.
+// Closing block: collapsible info sections (sign-up lives in the product rail).
 export default function SiteInfo() {
   const socials = [
     site.instagram && { label: 'Instagram', href: site.instagram },
@@ -20,11 +19,7 @@ export default function SiteInfo() {
   ].filter(Boolean) as { label: string; href: string }[]
 
   return (
-    <section id="list" className={styles.wrap}>
-      <h2 className={styles.title}>Sign Up</h2>
-      <p className={styles.sub}>Early access to every drop, before the public.</p>
-      <SignUp source="home" />
-
+    <section className={styles.wrap}>
       <div className={styles.list}>
         <details className={styles.item}>
           <summary>Customer Support <Chevron /></summary>

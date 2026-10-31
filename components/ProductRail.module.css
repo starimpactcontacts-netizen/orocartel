@@ -68,6 +68,11 @@
 }
 
 @media (min-width: 900px) {
+  /* Up to four tiles fit on desktop: nothing to page through. */
+  .navPhoneOnly {
+    display: none;
+  }
+
   .track > * {
     flex-basis: calc((100% - 3 * 24px) / 4);
   }

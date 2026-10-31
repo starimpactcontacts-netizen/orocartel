@@ -1,0 +1,21 @@
+.card {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ram {
+  width: 46%;
+  height: auto;
+  opacity: 0.9;
+}
+
+.form {
+  width: 100%;
+  margin-top: auto;
+  padding-top: clamp(20px, 5vw, 32px);
+}
