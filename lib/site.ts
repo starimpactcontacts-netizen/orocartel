@@ -25,6 +25,18 @@ export const site = {
       { src: '/hero/kohl-1078.jpg', width: 1078 },
     ],
   },
+  // Full-width tile under the hero.
+  feature: {
+    title: ['Makeup', 'for men'],
+    href: '/#shop',
+    width: 1024,
+    height: 1024,
+    alt: 'Cabrón Kohl Eye Pencil and box on black leather',
+    sources: [
+      { src: '/hero/cabron-still-640.jpg', width: 640 },
+      { src: '/hero/cabron-still-1024.jpg', width: 1024 },
+    ],
+  },
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',
   instagram: 'https://www.instagram.com/orocartel',
   tiktok: 'https://www.tiktok.com/@orocartel',

@@ -38,6 +38,25 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Second campaign tile: product still, white caps bottom-left. */}
+      <Link href={site.feature.href} className={styles.feature}>
+        <img
+          src={site.feature.sources[site.feature.sources.length - 1].src}
+          srcSet={site.feature.sources.map((s) => `${s.src} ${s.width}w`).join(', ')}
+          sizes="100vw"
+          width={site.feature.width}
+          height={site.feature.height}
+          alt={site.feature.alt}
+          className={styles.featureImg}
+          loading="lazy"
+        />
+        <h2 className={styles.featureTitle}>
+          {site.feature.title.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </h2>
+      </Link>
+
       <ProductRail title="Most wanted" products={products} />
 
       <SiteInfo />
