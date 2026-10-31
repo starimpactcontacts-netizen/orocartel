@@ -38,24 +38,43 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Second campaign tile: product still, white caps bottom-left. */}
-      <Link href={site.feature.href} className={styles.feature}>
-        <img
-          src={site.feature.sources[site.feature.sources.length - 1].src}
-          srcSet={site.feature.sources.map((s) => `${s.src} ${s.width}w`).join(', ')}
-          sizes="100vw"
-          width={site.feature.width}
-          height={site.feature.height}
-          alt={site.feature.alt}
-          className={styles.featureImg}
-          loading="lazy"
-        />
-        <h2 className={styles.featureTitle}>
-          {site.feature.title.map((line) => (
-            <span key={line}>{line}</span>
-          ))}
-        </h2>
-      </Link>
+      {/* Campaign tiles: full-width photos, white caps bottom-left, optional ram. */}
+      {site.features.map((f) => (
+        <Link
+          key={f.sources[0].src}
+          href={f.href}
+          className={`${styles.feature} ${f.shape === 'square' ? styles.featureSquare : ''}`}
+          aria-label={f.title.length ? f.title.join(' ') : f.alt}
+        >
+          <img
+            src={f.sources[f.sources.length - 1].src}
+            srcSet={f.sources.map((s) => `${s.src} ${s.width}w`).join(', ')}
+            sizes="100vw"
+            width={f.width}
+            height={f.height}
+            alt={f.alt}
+            className={styles.featureImg}
+            loading="lazy"
+          />
+          {f.ram && (
+            <img
+              src={f.ram.tone === 'white' ? '/ram.png' : '/ram-dark.png'}
+              alt=""
+              aria-hidden
+              className={`${styles.featureRam} ${f.ram.corner === 'left' ? styles.featureRamLeft : ''}`}
+              width={1085}
+              height={710}
+            />
+          )}
+          {f.title.length > 0 && (
+            <h2 className={styles.featureTitle}>
+              {f.title.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </h2>
+          )}
+        </Link>
+      ))}
 
       <ProductRail title="Most wanted" products={products} />
 

@@ -239,3 +239,31 @@
   line-height: 1.02;
 }
 
+
+/* Square photos: 1:1 on phones, a wide banner on desktop centred on the eyes. */
+.featureSquare {
+  aspect-ratio: 1 / 1;
+}
+
+.featureSquare .featureImg {
+  object-position: 50% 40%;
+}
+
+@media (min-width: 900px) {
+  .featureSquare {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.featureRam {
+  position: absolute;
+  right: clamp(14px, 4vw, 40px);
+  bottom: clamp(14px, 4vw, 36px);
+  width: clamp(64px, 17vw, 140px);
+  height: auto;
+}
+
+.featureRamLeft {
+  right: auto;
+  left: clamp(14px, 4vw, 40px);
+}

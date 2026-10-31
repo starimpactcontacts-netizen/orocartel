@@ -1,3 +1,14 @@
+type Feature = {
+  title: string[]
+  href: string
+  shape: 'landscape' | 'square'
+  ram?: { corner: 'left' | 'right'; tone: 'white' | 'black' }
+  width: number
+  height: number
+  alt: string
+  sources: { src: string; width: number }[]
+}
+
 export const site = {
   // true: every page shows the coming-soon screen. Set to false to open the store.
   comingSoon: false,
@@ -27,21 +38,42 @@ export const site = {
       { src: '/hero/kohl-2156.jpg', width: 2156 },
     ],
   },
-  // Full-width tile under the hero.
-  feature: {
-    title: ['Makeup', 'for men'],
-    href: '/#shop',
-    width: 2048,
-    height: 2048,
-    alt: 'Cabrón Kohl Eye Pencil and box on black leather',
-    sources: [
-      { src: '/hero/cabron-still-640.jpg', width: 640 },
-      { src: '/hero/cabron-still-1024.jpg', width: 1024 },
-      { src: '/hero/cabron-still-1290.jpg', width: 1290 },
-      { src: '/hero/cabron-still-1600.jpg', width: 1600 },
-      { src: '/hero/cabron-still-2048.jpg', width: 2048 },
-    ],
-  },
+  // Full-width campaign tiles under the hero, top to bottom.
+  // shape: 'landscape' = 4:3 everywhere; 'square' = 1:1 on phones, wide banner on desktop.
+  // ram: put the Orocartel ram in a bottom corner ('white' for dark photos).
+  features: [
+    {
+      title: ['Makeup', 'for men'],
+      href: '/#shop',
+      shape: 'landscape',
+      width: 2048,
+      height: 2048,
+      alt: 'Cabrón Kohl Eye Pencil and box on black leather',
+      sources: [
+        { src: '/hero/cabron-still-640.jpg', width: 640 },
+        { src: '/hero/cabron-still-1024.jpg', width: 1024 },
+        { src: '/hero/cabron-still-1290.jpg', width: 1290 },
+        { src: '/hero/cabron-still-1600.jpg', width: 1600 },
+        { src: '/hero/cabron-still-2048.jpg', width: 2048 },
+      ],
+    },
+    {
+      title: [],
+      href: '/products/cabron-kohl-eye-pencil',
+      shape: 'square',
+      ram: { corner: 'left', tone: 'white' },
+      width: 2096,
+      height: 2048,
+      alt: 'Close-up of a man’s eyes lined with kohl',
+      sources: [
+        { src: '/hero/eyes-640.jpg', width: 640 },
+        { src: '/hero/eyes-1024.jpg', width: 1024 },
+        { src: '/hero/eyes-1290.jpg', width: 1290 },
+        { src: '/hero/eyes-1600.jpg', width: 1600 },
+        { src: '/hero/eyes-2096.jpg', width: 2096 },
+      ],
+    },
+  ] as Feature[],
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',
   instagram: 'https://www.instagram.com/orocartel',
   tiktok: 'https://www.tiktok.com/@orocartel',
