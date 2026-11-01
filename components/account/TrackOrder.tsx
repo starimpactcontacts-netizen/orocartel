@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import OrderCard, { type OrderView } from './OrderCard'
 import styles from './Account.module.css'
@@ -76,11 +75,6 @@ export default function TrackOrder() {
 
       {order && <OrderCard order={order} />}
 
-      <p className={`${styles.muted} ${styles.row}`}>
-        <span>
-          Have an account? <Link href="/account" className={styles.link}>Sign in</Link> to see all your orders.
-        </span>
-      </p>
     </main>
   )
 }

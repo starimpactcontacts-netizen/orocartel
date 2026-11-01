@@ -197,7 +197,7 @@ function PayForm({ total, paymentIntentId }: { total: number; paymentIntentId: s
       return
     }
     const a = address.value
-    // Store the email on the order first, so it can be tracked and shown in the account.
+    // Store the email on the order first, so it can be tracked later.
     if (email) {
       await fetch('/api/checkout/email', {
         method: 'POST',

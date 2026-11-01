@@ -3,7 +3,7 @@ import { stripe, stripeConfigured } from '@/lib/stripe'
 import { normaliseEmail } from '@/lib/order'
 
 // Saves the customer's email on the payment just before it is confirmed, so the
-// order can be found later (order tracking and the account page).
+// order can be found later with order tracking.
 export async function POST(req: NextRequest) {
   if (!stripeConfigured()) return NextResponse.json({ error: 'Not configured' }, { status: 503 })
   const body = await req.json().catch(() => ({}))

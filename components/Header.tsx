@@ -97,7 +97,6 @@ export default function Header({ overHero = false, tone = 'light' }: { overHero?
             <a href="/#shop">Shop</a>
             <a href="/#list">Join the list</a>
             <Link href="/about">About</Link>
-            <Link href="/account">Account</Link>
             <Link href="/track">Track order</Link>
             {site.instagram && <a href={site.instagram} target="_blank" rel="noreferrer">Instagram</a>}
             {site.tiktok && <a href={site.tiktok} target="_blank" rel="noreferrer">TikTok</a>}
@@ -142,19 +141,10 @@ export default function Header({ overHero = false, tone = 'light' }: { overHero?
                 <svg {...icon} strokeWidth={1.3} width={34} height={34}><path d="M5 5l14 14M19 5L5 19" /></svg>
               </button>
             </div>
-            <Link href="/account" className={styles.sheetPrimary} onClick={close}>
-              Sign in
+            <Link href="/track" className={styles.sheetPrimary} onClick={close}>
+              <svg {...icon} width={20} height={20}><rect x="4" y="6" width="16" height="14" rx="1.5" /><path d="M8 6V4h8v2M8 13h8" /></svg>
+              Track order
             </Link>
-            <div className={styles.sheetPair}>
-              <Link href="/track" className={styles.sheetGhost} onClick={close}>
-                <svg {...icon} width={20} height={20}><rect x="4" y="6" width="16" height="14" rx="1.5" /><path d="M8 6V4h8v2M8 13h8" /></svg>
-                Track order
-              </Link>
-              <Link href="/account" className={styles.sheetGhost} onClick={close}>
-                <svg {...icon} width={20} height={20}><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-7.5 8-7.5s8 3.1 8 7.5" /></svg>
-                Orders
-              </Link>
-            </div>
             <a href={`mailto:${site.contactEmail}`} className={styles.sheetContact} onClick={close}>
               Need help? {site.contactEmail}
             </a>
