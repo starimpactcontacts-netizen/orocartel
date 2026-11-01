@@ -152,15 +152,17 @@
   height: 16px;
   padding: 0 4px;
   border-radius: 8px;
-  background: currentColor;
-  color: var(--bg);
+  background: #121212;
+  color: #fff;
   font-size: 10px;
+  font-weight: 600;
   line-height: 16px;
   text-align: center;
 }
 
 /* over the photo the icons are white, so flip the badge to white with dark text */
 .clearLight .badge {
+  background: #fff;
   color: #121212;
 }
 
