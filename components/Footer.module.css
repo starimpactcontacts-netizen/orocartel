@@ -30,3 +30,16 @@
   letter-spacing: 0.06em;
   color: var(--muted);
 }
+
+.icons {
+  display: flex;
+  gap: 26px;
+}
+
+.icons a {
+  display: inline-flex;
+}
+
+.icons a:hover {
+  color: var(--muted);
+}

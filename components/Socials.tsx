@@ -11,6 +11,12 @@ const icons = {
       <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
     </>
   ),
+  Email: (
+    <>
+      <rect x="3" y="5.5" width="18" height="13" rx="1" />
+      <path d="M3.5 6.5l8.5 6.5 8.5-6.5" />
+    </>
+  ),
   YouTube: (
     <>
       <rect x="2.5" y="5.5" width="19" height="13" rx="4" />
@@ -19,17 +25,24 @@ const icons = {
   ),
 }
 
+// Icon row: social profiles that have a URL in site config, plus email.
 export default function Socials({ className, size = 24 }: { className?: string; size?: number }) {
   const links = [
     ['TikTok', site.tiktok],
     ['Instagram', site.instagram],
     ['YouTube', site.youtube],
+    ['Email', site.contactEmail && `mailto:${site.contactEmail}`],
   ] as const
   return (
     <nav className={className} aria-label="Social">
       {links.map(([label, href]) =>
         href ? (
-          <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={`${site.name} on ${label}`}>
+          <a
+            key={label}
+            href={href}
+            {...(label === 'Email' ? {} : { target: '_blank', rel: 'noreferrer' })}
+            aria-label={label === 'Email' ? `Email ${site.name}` : `${site.name} on ${label}`}
+          >
             <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth="1.6">
               {icons[label]}
             </svg>

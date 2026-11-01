@@ -59,9 +59,9 @@ export const site = {
     },
   ] as Feature[],
   dropDate: process.env.NEXT_PUBLIC_DROP_DATE || '',
-  instagram: 'https://www.instagram.com/orocartel',
-  tiktok: 'https://www.tiktok.com/@orocartel',
-  youtube: 'https://www.youtube.com/@theorocartel',
+  instagram: '', // add a URL here to show Instagram again
+  tiktok: 'https://www.tiktok.com/@orocartel.com',
+  youtube: '', // add a URL here to show YouTube again
   contactEmail: 'contact@orocartel.com',
   // Required by Swedish e-commerce law (e-handelslagen): fill in when the company is registered.
   company: {
