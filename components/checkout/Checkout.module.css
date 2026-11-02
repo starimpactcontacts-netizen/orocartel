@@ -226,3 +226,45 @@
     padding-top: 48px;
   }
 }
+
+.code {
+  display: flex;
+  margin-top: 18px;
+  border: 1px solid rgba(18, 18, 18, 0.25);
+  background: #fff;
+}
+
+.code input {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  padding: 0 12px;
+  border: none;
+  font: inherit;
+  font-size: 15px;
+  text-transform: uppercase;
+  background: transparent;
+}
+
+.code input:focus {
+  outline: none;
+}
+
+.code button {
+  padding: 0 16px;
+  border: none;
+  border-left: 1px solid rgba(18, 18, 18, 0.25);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.codeError {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #b00020;
+}

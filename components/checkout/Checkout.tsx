@@ -26,6 +26,10 @@ type Summary = {
   lines: { id: string; name: string; image: string; quantity: number; price: number }[]
   subtotal: number
   shipping: number
+  discount: number
+  discountCode: string | null
+  discountPercent: number
+  discountError: string | null
   total: number
 }
 
@@ -58,6 +62,8 @@ export default function Checkout() {
   const buy = params.get('buy') // Quick buy: one item, bag untouched
   const [summary, setSummary] = useState<Summary | null>(null)
   const [error, setError] = useState('')
+  const [code, setCode] = useState(params.get('code') ?? '') // applied code
+  const [codeInput, setCodeInput] = useState(params.get('code') ?? '')
 
   const request = useMemo(
     () =>
@@ -66,7 +72,7 @@ export default function Checkout() {
         : cart.items.map((i) => ({ productId: i.id, quantity: i.quantity })),
     [buy, cart.items],
   )
-  const key = JSON.stringify(request)
+  const key = JSON.stringify([request, code])
 
   useEffect(() => {
     if (!request.length) return
@@ -75,7 +81,7 @@ export default function Checkout() {
     fetch('/api/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: request, paymentIntentId: summary?.paymentIntentId }),
+      body: JSON.stringify({ items: request, paymentIntentId: summary?.paymentIntentId, discountCode: code }),
     })
       .then(async (r) => {
         const data = await r.json().catch(() => ({}))
@@ -152,6 +158,14 @@ export default function Checkout() {
                     <dt>Subtotal</dt>
                     <dd>{formatKr(summary.subtotal)}</dd>
                   </div>
+                  {summary.discount > 0 && (
+                    <div>
+                      <dt>
+                        Discount ({summary.discountCode}, −{summary.discountPercent}%)
+                      </dt>
+                      <dd>−{formatKr(summary.discount)}</dd>
+                    </div>
+                  )}
                   <div>
                     <dt>Shipping</dt>
                     <dd>{summary.shipping ? formatKr(summary.shipping) : 'Free'}</dd>
@@ -161,6 +175,36 @@ export default function Checkout() {
                     <dd>{formatKr(summary.total)}</dd>
                   </div>
                 </dl>
+                <form
+                  className={styles.code}
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    setCode(codeInput.trim())
+                  }}
+                >
+                  <input
+                    value={codeInput}
+                    onChange={(e) => setCodeInput(e.target.value)}
+                    placeholder="Discount code"
+                    aria-label="Discount code"
+                    autoCapitalize="characters"
+                    autoComplete="off"
+                  />
+                  {summary.discountCode && code.trim().toUpperCase() === summary.discountCode ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCode('')
+                        setCodeInput('')
+                      }}
+                    >
+                      Remove
+                    </button>
+                  ) : (
+                    <button type="submit">Apply</button>
+                  )}
+                </form>
+                {summary.discountError && <p className={styles.codeError}>{summary.discountError}</p>}
                 <p className={styles.note}>
                   VAT included. {summary.shipping ? `Free shipping from ${formatKr(shippingRule.freeFrom)}.` : ''}
                 </p>
@@ -184,6 +228,11 @@ function PayForm({ total, paymentIntentId }: { total: number; paymentIntentId: s
   const [email, setEmail] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+
+  // The server updates the payment amount when the bag or code changes; refresh the fields.
+  useEffect(() => {
+    elements?.fetchUpdates().catch(() => {})
+  }, [elements, total])
 
   async function pay(e: React.FormEvent) {
     e.preventDefault()

@@ -6,6 +6,7 @@ export type OrderView = {
   stage: 'payment' | 'confirmed' | 'production' | 'shipped'
   lines: { name: string; quantity: number; total: number }[]
   shipping: number
+  discount: number
   total: number
   shipTo: string | null
   tracking: { number?: string; carrier?: string; url?: string }[]
@@ -69,6 +70,12 @@ export default function OrderCard({ order }: { order: OrderView }) {
             <span>{kr(l.total)}</span>
           </li>
         ))}
+        {order.discount > 0 && (
+          <li>
+            <span>Discount</span>
+            <span>−{kr(order.discount)}</span>
+          </li>
+        )}
         <li>
           <span>Shipping</span>
           <span>{order.shipping ? kr(order.shipping) : 'Free'}</span>

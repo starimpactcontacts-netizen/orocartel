@@ -29,6 +29,8 @@ async function loadOrder(id?: string) {
       ship: pi.shipping,
       total: pi.amount / 100,
       shipping: Number(pi.metadata.shipping ?? 0),
+      discount: Number(pi.metadata.discount ?? 0),
+      discountCode: pi.metadata.discount_code || null,
       lines: decodeLines(pi.metadata.items ?? '').map((l) => ({
         ...l,
         name: products.find((p) => p.id === l.productId)?.name ?? 'Orocartel product',
@@ -72,6 +74,12 @@ export default async function ThankYou({ searchParams }: Props) {
                       <span>{kr(l.unitPrice * l.quantity)}</span>
                     </li>
                   ))}
+                  {order.discount > 0 && (
+                    <li>
+                      <span>Discount ({order.discountCode})</span>
+                      <span>−{kr(order.discount)}</span>
+                    </li>
+                  )}
                   <li>
                     <span>Shipping</span>
                     <span>{order.shipping ? kr(order.shipping) : 'Free'}</span>

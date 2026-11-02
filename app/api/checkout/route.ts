@@ -10,14 +10,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Checkout is not open yet.' }, { status: 503 })
   }
 
-  let body: { items?: CartLine[]; paymentIntentId?: unknown }
+  let body: { items?: CartLine[]; paymentIntentId?: unknown; discountCode?: unknown }
   try {
     body = await req.json()
   } catch {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
   }
 
-  const bag = await priceBag(body.items ?? [])
+  const bag = await priceBag(body.items ?? [], body.discountCode)
+  const codeTried = typeof body.discountCode === 'string' && body.discountCode.trim() !== ''
   if (!bag.lines.length) {
     return NextResponse.json({ error: 'Your bag has no available items.' }, { status: 400 })
   }
@@ -28,6 +29,8 @@ export async function POST(req: NextRequest) {
     items: encodeLines(bag.lines),
     subtotal: String(bag.subtotal),
     shipping: String(bag.shipping),
+    discount: String(bag.discount),
+    discount_code: bag.discountCode ?? '',
   }
   const amount = Math.round(bag.total * 100)
 
@@ -59,6 +62,10 @@ export async function POST(req: NextRequest) {
       })),
       subtotal: bag.subtotal,
       shipping: bag.shipping,
+      discount: bag.discount,
+      discountCode: bag.discountCode,
+      discountPercent: bag.discountPercent,
+      discountError: codeTried && !bag.discountCode ? 'That code isn’t valid.' : null,
       total: bag.total,
     })
   } catch (e) {

@@ -122,6 +122,7 @@ export async function fulfilPaymentIntent(id: string): Promise<string | null> {
   const email = pi.receipt_email ?? bill?.email ?? undefined
   const shippingKr = Number(pi.metadata.shipping ?? 0)
   const subtotalKr = Number(pi.metadata.subtotal ?? 0)
+  const discountKr = Number(pi.metadata.discount ?? 0)
 
   const lineItems = lines.map((l) => ({
     quantity: l.quantity,
@@ -160,10 +161,10 @@ export async function fulfilPaymentIntent(id: string): Promise<string | null> {
           subtotal: { amount: subtotalKr.toFixed(2) },
           shipping: { amount: shippingKr.toFixed(2) },
           tax: amt(0),
-          discount: amt(0),
+          discount: { amount: discountKr.toFixed(2) },
           total: amt(pi.amount_received),
         },
-        buyerNote: `Paid with Stripe · ${pi.id}`,
+        buyerNote: `Paid with Stripe · ${pi.id}${pi.metadata.discount_code ? ` · code ${pi.metadata.discount_code}` : ''}`,
       },
     },
   })

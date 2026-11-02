@@ -11,6 +11,7 @@ export type OrderView = {
   stage: 'payment' | 'confirmed' | 'production' | 'shipped'
   lines: { name: string; quantity: number; total: number }[]
   shipping: number
+  discount: number
   total: number
   shipTo: string | null
   tracking: { number?: string; carrier?: string; url?: string }[]
@@ -54,6 +55,7 @@ export async function viewOrder(pi: Stripe.PaymentIntent): Promise<OrderView> {
       total: l.unitPrice * l.quantity,
     })),
     shipping: Number(pi.metadata.shipping ?? 0),
+    discount: Number(pi.metadata.discount ?? 0),
     total: pi.amount / 100,
     shipTo: a ? [a.city, a.country].filter(Boolean).join(', ') : null,
     tracking,

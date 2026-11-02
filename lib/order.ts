@@ -2,13 +2,14 @@ import 'server-only'
 import { randomInt } from 'crypto'
 import { getProducts, type Product } from './products'
 import { shippingFor } from './shipping'
+import { findDiscount } from './discounts'
 
 export type CartLine = { productId?: unknown; quantity?: unknown }
 export type PricedLine = { product: Product; quantity: number }
 
 // Re-prices a bag against the live catalogue. The browser only says *what* and
 // *how many*; every price and the shipping fee are decided here.
-export async function priceBag(lines: CartLine[]) {
+export async function priceBag(lines: CartLine[], discountCode?: unknown) {
   const products = await getProducts()
   const merged = new Map<string, number>()
   for (const l of lines ?? []) {
@@ -24,7 +25,17 @@ export async function priceBag(lines: CartLine[]) {
   const lines5 = priced.slice(0, 5) // keeps the order inside Stripe's metadata limits
   const subtotal = lines5.reduce((n, l) => n + l.product.price * l.quantity, 0)
   const shipping = lines5.length ? shippingFor(subtotal) : 0
-  return { lines: lines5, subtotal, shipping, total: subtotal + shipping }
+  const d = findDiscount(discountCode)
+  const discount = d ? Math.round((subtotal * d.percent) / 100) : 0 // whole kronor
+  return {
+    lines: lines5,
+    subtotal,
+    discount,
+    discountCode: d?.code ?? null,
+    discountPercent: d?.percent ?? 0,
+    shipping,
+    total: Math.round((subtotal - discount + shipping) * 100) / 100,
+  }
 }
 
 // Compact order record stored on the PaymentIntent: productId:variantId:qty:unitKr;...
