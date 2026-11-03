@@ -3,10 +3,10 @@
 // makeup for men, eyeliner / kohl for men, smink för män.
 
 export const aboutIntro =
-  'Orocartel is a men’s makeup store from Sweden. We make makeup for men that you can wear every day, starting with the CABRÓN Kohl Eye Pencil.'
+  'Orocartel is a men’s makeup store from Stockholm, Sweden. We make makeup for men that you can wear every day, starting with the CABRÓN Kohl Eye Pencil.'
 
 export const aboutShort = [
-  'Orocartel is a men’s makeup store from Sweden. Makeup for men, made to be worn, not hidden.',
+  'Orocartel is a men’s makeup store from Stockholm. Makeup for men, made to be worn, not hidden.',
   'Men have lined their eyes with kohl for thousands of years. We are bringing it back, starting with the CABRÓN Kohl Eye Pencil.',
 ]
 
@@ -46,7 +46,7 @@ export const aboutSections: { title: string; paragraphs: string[] }[] = [
   {
     title: 'Smink för män',
     paragraphs: [
-      'Orocartel är en svensk butik för smink för män. Vår första produkt är CABRÓN Kohl Eye Pencil, en krämig svart kajal för män, för ögonkant och vattenlinje. 299 kr, fri frakt från 699 kr.',
+      'Orocartel är en butik för smink för män från Stockholm. Vår första produkt är CABRÓN Kohl Eye Pencil, en krämig svart kajal för män, för ögonkant och vattenlinje. 299 kr, fri frakt från 699 kr.',
     ],
   },
 ]
@@ -69,7 +69,7 @@ export const aboutFaq: { q: string; a: string }[] = [
     a: 'We ship to Sweden, the Nordics, most of the EU, the UK, the US and Canada. Shipping is 69 kr per order and free on orders from 699 kr.',
   },
   {
-    q: 'Is Orocartel a Swedish brand?',
-    a: 'Yes. Orocartel is a men’s makeup brand and store from Sweden.',
+    q: 'Where is Orocartel from?',
+    a: 'Stockholm, Sweden. Orocartel is a men’s makeup brand and store from Stockholm.',
   },
 ]

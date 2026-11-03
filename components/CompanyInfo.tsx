@@ -19,7 +19,7 @@ export default function CompanyInfo() {
         </>
       )}
       <br />
-      {c.address || 'Sweden'}
+      {c.address || 'Stockholm, Sweden'}
       <br />
       <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
     </p>

@@ -7,9 +7,9 @@ import { site } from '@/lib/site'
 import { aboutFaq, aboutIntro, aboutSections } from '@/lib/about'
 import styles from './page.module.css'
 
-const title = 'About Orocartel: Men’s Makeup from Sweden'
+const title = 'About Orocartel: Men’s Makeup from Stockholm'
 const description =
-  'Orocartel is a men’s makeup store from Sweden. Makeup for men, starting with the CABRÓN Kohl Eye Pencil: creamy black kohl eyeliner for men.'
+  'Orocartel is a men’s makeup store from Stockholm, Sweden. Makeup for men, starting with the CABRÓN Kohl Eye Pencil: creamy black kohl eyeliner for men.'
 
 export const metadata: Metadata = {
   title: { absolute: title },

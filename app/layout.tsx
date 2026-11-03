@@ -49,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 url: site.url,
                 logo: `${site.url}/icon.png`,
                 email: site.contactEmail,
+                address: { '@type': 'PostalAddress', addressLocality: 'Stockholm', addressCountry: 'SE' },
                 description: site.description,
                 sameAs: [site.instagram, site.tiktok, site.youtube].filter(Boolean),
               },
